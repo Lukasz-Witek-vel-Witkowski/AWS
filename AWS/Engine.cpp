@@ -1,7 +1,5 @@
 #include "Engine.h"
 
-
-
 Engine::Engine()
 {
 	loadFileConfig(); //wczytywanie pliku konfiguracyjnego
@@ -46,7 +44,7 @@ void Engine::run() {
 	//int activeProgram;
 	while (manager.sizeProduction() > 0) {
 		analisesListFile();
-		std::cout << program << "\n";
+		//std::cout << program << "\n";
 		switch (program) {
 			case '1': {
 					activeLoadFile = true;
@@ -65,12 +63,12 @@ void Engine::run() {
 						configurationIterator();
 						break;
 					}
-					fPerformance(filePointer, iteratorPerformance);
+					//fPerformance(filePointer, iteratorPerformance);
 					fSaveFile(filePointer, iteratorSave);
 			}break;
 			case '2': {
 				std::thread threadLoadFile(fLoadFile, filePointer, iteratorLoadFile, manager.nextFile(), outputFolder);
-				std::thread threadPreparation(fPerformance, filePointer, iteratorPerformance);
+				//std::thread threadPreparation(fPerformance, filePointer, iteratorPerformance);
 				if (fullProduction) {
 					program = '3';
 					activeLoadFile = true;
@@ -78,14 +76,14 @@ void Engine::run() {
 					activeSave = true;
 					configurationIterator();
 					threadLoadFile.join();
-					threadPreparation.join();
+					//threadPreparation.join();
 					break;
 				}
 				else {
 					program = '4';
 					configurationIterator();
 					threadLoadFile.join();
-					threadPreparation.join();
+					//threadPreparation.join();
 					activeLoadFile = false;
 					activePerformance = true;
 					activeSave = true;
@@ -93,7 +91,7 @@ void Engine::run() {
 			}break;
 			case '3': {
 				std::thread threadLoadFile(fLoadFile, filePointer, iteratorLoadFile, manager.nextFile(), outputFolder);
-				std::thread threadPreparation(fPerformance, filePointer, iteratorPerformance);
+				//std::thread threadPreparation(fPerformance, filePointer, iteratorPerformance);
 				std::thread threadSaveFile(fSaveFile, filePointer, iteratorSave);
 				if (!fullProduction) {
 					program = '4';
@@ -103,18 +101,18 @@ void Engine::run() {
 				}
 				configurationIterator();
 				threadLoadFile.join();
-				threadPreparation.join();
+				//threadPreparation.join();
 				threadSaveFile.join();
 			}break;
 			case '4': {
-				std::thread threadPreparation(fPerformance, filePointer, iteratorPerformance);
+				//std::thread threadPreparation(fPerformance, filePointer, iteratorPerformance);
 				std::thread threadSaveFile(fSaveFile, filePointer, iteratorSave);
 				program = '5';
 				activeLoadFile = false;
 				activePerformance = false;
 				activeSave = true;
 				configurationIterator();
-				threadPreparation.join();
+				//threadPreparation.join();
 				threadSaveFile.join();
 			}break;
 			case '5': {
@@ -195,9 +193,9 @@ void fLoadFile(File* file,short id ,std::string name, std::string output) {
 	file[id].setOutputFolder(output);
 	file[id].loadFile();
 }
-void fPerformance(File* file, short id) {
+/*void fPerformance(File* file, short id) {
 	file[id].preparationFile();
-}
+}*/
 void fSaveFile(File* file, short id) {
 	file[id].saveFile();
 }

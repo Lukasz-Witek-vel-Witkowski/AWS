@@ -18,13 +18,12 @@ public:
 	Record(const Record& r);
 	Record& operator=(const Record& r);
 	bool operator==(const Record& r);
-	//dodac konstruktor kopujacy!!
 	std::string performance();
-	long getTime();
-	float getAfter();
-	float getBefore();
+	long& getTime();
+	float& getAfter();
+	float& getBefore();
 	int getCanal();
-	int getValue(int iter);
+	int& getValue(int iter);
 	void setCanal(int Canal);
 	bool newSection();
 	~Record();

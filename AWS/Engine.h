@@ -3,7 +3,7 @@
 #define ENGINE_HPP
 #include "Manager.h"
 constexpr auto config = "file.cnf";
-constexpr auto sizeFiles = 3;
+constexpr auto sizeFiles = 2;
 #include <thread>
 #include "File.h"
 class Engine
@@ -31,7 +31,7 @@ private:
 	std::string outputFolder;
 };
 void fLoadFile(File* file, short id, std::string name, std::string output);
-void fPerformance(File* file,short id);
+//void fPerformance(File* file,short id);
 void fSaveFile(File* file,short id);
 #endif // !ENGINE_HPP
 

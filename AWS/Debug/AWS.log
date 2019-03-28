@@ -4,5 +4,13 @@
   Manager.cpp
   Record.cpp
   Section.cpp
+  Segment.cpp
   Generating Code...
+d:\project\studia\semestr_vi\aws\aws\segment.cpp(99): warning C4715: '_SegmentF::operator=': not all control paths return a value
+d:\project\studia\semestr_vi\aws\aws\segment.cpp(168): warning C4172: returning address of local variable or temporary: l
+d:\project\studia\semestr_vi\aws\aws\segment.cpp(183): warning C4172: returning address of local variable or temporary: f
+d:\project\studia\semestr_vi\aws\aws\segment.cpp(198): warning C4172: returning address of local variable or temporary: f
+d:\project\studia\semestr_vi\aws\aws\record.cpp(159): warning C4172: returning address of local variable or temporary: f
+d:\project\studia\semestr_vi\aws\aws\record.cpp(168): warning C4172: returning address of local variable or temporary: i
+d:\project\studia\semestr_vi\aws\aws\record.cpp(154): warning C4172: returning address of local variable or temporary: f
   AWS.vcxproj -> D:\Project\Studia\Semestr_VI\AWS\Debug\AWS.exe

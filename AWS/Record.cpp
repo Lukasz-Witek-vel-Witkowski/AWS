@@ -1,7 +1,4 @@
 #include "Record.h"
-
-
-
 Record::Record()
 {
 	measurement = false;
@@ -53,8 +50,9 @@ bool Record::operator==(const Record& r) {
 void Record::loadData(std::istream& file) {
 	std::string temp;
 	std::getline(file, temp);
-	std::cout<<" "<< temp <<'\n';
-	if (diagnosis) diagnostics(temp);
+	std::cout<<"\t odczyt z pliku:  "<< temp <<'\n';
+	if (diagnosis) 
+		diagnostics(temp);
 	if (temp == "") {
 		diagnosis = true; 
 		section = true;
@@ -145,24 +143,27 @@ std::string Record::performance() {
 	}
 	return data;
 }
-long Record::getTime() {
+long& Record::getTime() {
 	return *time;
 }
 int Record::getCanal() { return canal; }
 void Record::setCanal(int Canal) { canal = Canal; }
-float Record::getAfter() {
+float& Record::getAfter() {
 	if (measurement) return *firstMeasurement;
-	return 0.0;
+	float f = 0.0;
+	return f;
 }
-float Record::getBefore() {
+float& Record::getBefore() {
 	if (measurement) return *secendMeasurement;
-	return 0.0;
+	float f = 0.0;
+	return f;
 }
-int Record::getValue(int iter) {
+int& Record::getValue(int iter) {
 	switch (iter) {
-	case 0:	return *firstValue;
+	case 0:	return *firstValue; //zwraca nullptr!!!
 	case 1:	return *secendValue;
 	case 2: return *thirdValue;
 	}
-	return 0;
+	int i = 0;
+	return i;
 }

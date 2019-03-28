@@ -1,49 +1,53 @@
 #pragma once
 #ifndef SEGMENT_HPP
 #define SEGMENT_HPP
+#include <fstream>
+#include <string>
+#include <iostream>
+enum Program {
+	ch0,
+	ch1,
+	ch2,
+	digital
+};
 constexpr auto maxIterator = 1024;
 struct _SegmentF
 {
+private:
+	long *timer0 = nullptr;
+	long *timer1 = nullptr;
+	long *timer2 = nullptr;
+	float *ch0After = nullptr;
+	float *ch0Before = nullptr;
+	float *ch1After = nullptr;
+	float *ch1Before = nullptr;
+	float *ch2After = nullptr;
+	float *ch2Before = nullptr;
+	int *ch0degetal = nullptr;
+	int *ch1degetal = nullptr;
+	int *ch2degetal = nullptr;
+	Program program;
+	bool full;
+	int iterator;
+	void config();
+	void clear();
 public:
-	long *timer0;
-	long *timer1;
-	long *timer2;
-	float *ch0After;
-	float *ch0Before;
-	float *ch1After;
-	float *ch1Before;
-	float *ch2After;
-	float *ch2Before;
-	int *ch0degetal;
-	int *ch1degetal;
-	int *ch2degetal;
-	_SegmentF() {
-		timer0 = new long[maxIterator];
-		timer1 = new long[maxIterator];
-		timer2 = new long[maxIterator];
-		ch0After = new float[maxIterator];
-		ch0Before = new float[maxIterator];
-		ch1After = new float[maxIterator];
-		ch1Before = new float[maxIterator];
-		ch2After = new float[maxIterator];
-		ch2Before = new float[maxIterator];
-		ch0degetal = new int[maxIterator];
-		ch1degetal = new int[maxIterator];
-		ch2degetal = new int[maxIterator];
-	}
-	~_SegmentF() {
-		delete[] timer0;
-		delete[] timer1;
-		delete[] timer2;
-		delete[] ch0After;
-		delete[] ch0Before;
-		delete[] ch1After;
-		delete[] ch1Before;
-		delete[] ch2After;
-		delete[] ch2Before;
-		delete[] ch0degetal;
-		delete[] ch1degetal;
-		delete[] ch2degetal;
-	}
+	_SegmentF();
+	_SegmentF(const _SegmentF& s);
+	_SegmentF& operator=(const _SegmentF& s);
+	bool operator==(const _SegmentF& s);
+	void loadData(std::istream& file);
+	void setTimer(int i, int iterator,long& value);
+	void setChAfter(int i, int iterator,float& value);
+	void setChBefore(int i,int iterator, float& value);
+	void setChDegetal(int i, int iterator,int& value);
+	long& getTimer(int i, int iterator);
+	bool& isFull();
+	float& getChAfter(int i, int iterator);
+	float& getChBefore(int i, int iterator);
+	int getChDegetal(int i, int iterator);
+	void reset();
+	int getIterator();
+	~_SegmentF();
 };
 #endif // !SEGMENT_HPP
