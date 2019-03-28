@@ -43,11 +43,12 @@ bool File::eof(std::istream& file) {
 void File::saveFile() {
 	std::ofstream file;
 	int iterator = 0;
-	std::string data = outputFolder + "\\" + nameFile.substr(11, nameFile.size()-1);
+	std::string data = outputFolder + "\\" + nameFile.substr(8, nameFile.size()-11);
+	data += "bin";
 	file.open(data.c_str());
 	if (file.good()) {
 		for (auto& x : vSegment) {
-			file.write(reinterpret_cast <char *>(&x), sizeof(x)); //rzutowanie na zapis binarny
+			file.write(reinterpret_cast <char *>(&x), sizeof(_SegmentF)); //rzutowanie na zapis binarny
 		}
 		file.close();
 	}

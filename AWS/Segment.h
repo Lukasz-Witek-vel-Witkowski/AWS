@@ -11,26 +11,27 @@ enum Program {
 	digital
 };
 constexpr auto maxIterator = 1024;
+//void cutValue(std::string& data, std::string& value, std::size_t& ptr);
 struct _SegmentF
 {
 private:
-	long *timer0 = nullptr;
-	long *timer1 = nullptr;
-	long *timer2 = nullptr;
-	float *ch0After = nullptr;
-	float *ch0Before = nullptr;
-	float *ch1After = nullptr;
-	float *ch1Before = nullptr;
-	float *ch2After = nullptr;
-	float *ch2Before = nullptr;
-	int *ch0degetal = nullptr;
-	int *ch1degetal = nullptr;
-	int *ch2degetal = nullptr;
+	long timer0[maxIterator];
+	long timer1[maxIterator];
+	long timer2[maxIterator];
+	float ch0After[maxIterator];
+	float ch0Before[maxIterator];
+	float ch1After[maxIterator];
+	float ch1Before[maxIterator];
+	float ch2After[maxIterator];
+	float ch2Before[maxIterator];
+	int ch0degetal[maxIterator];
+	int ch1degetal[maxIterator];
+	int ch2degetal[maxIterator];
 	Program program;
 	bool full;
 	int iterator;
 	void config();
-	void clear();
+	//void clear();
 public:
 	_SegmentF();
 	_SegmentF(const _SegmentF& s);
@@ -46,6 +47,7 @@ public:
 	float& getChAfter(int i, int iterator);
 	float& getChBefore(int i, int iterator);
 	int getChDegetal(int i, int iterator);
+	void cutValue(std::string& data, std::string& value, std::size_t& ptr);
 	void reset();
 	int getIterator();
 	~_SegmentF();
