@@ -1,4 +1,6 @@
 #scierzka do katalogu z plikami
 100 ..\test
-#sciezka do katalogu z wyjsciowymi plikami
+#sciezka do katalogu wyjsciowego
 200 ..\output
+#nazwa pliku wynikowego
+300 outPut.bin

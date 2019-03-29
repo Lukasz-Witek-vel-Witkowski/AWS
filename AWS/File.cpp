@@ -21,7 +21,6 @@ void File::loadFile() {
 	int i = 1;
 	if (file.is_open()) {
 		while (eof(file)) { //warunek petli!!!
-			std::cout << i++;
 			file >> *this;
 		}
 		file.close();
@@ -43,9 +42,8 @@ bool File::eof(std::istream& file) {
 void File::saveFile() {
 	std::ofstream file;
 	int iterator = 0;
-	std::string data = outputFolder + "\\" + nameFile.substr(8, nameFile.size()-11);
-	data += "bin";
-	file.open(data.c_str());
+	std::string data = outputFolder + "\\" + outPutFile;
+	file.open(data.c_str(),std::ios::app);
 	if (file.good()) {
 		for (auto& x : vSegment) {
 			file.write(reinterpret_cast <char *>(&x), sizeof(_SegmentF)); //rzutowanie na zapis binarny
@@ -66,7 +64,7 @@ _SegmentF& File::getSegment(unsigned int value) {
 		return vSegment[vSegment.size() - 1];
 }
 unsigned int File::getiterator() {
-	return vSegment.size();
+	return (unsigned)vSegment.size();
 }
 File::~File()
 {
@@ -118,3 +116,6 @@ _SegmentF& File::getTemp() {
 		break;
 	}
 }*/
+void File::setOutPutFile(std::string name) {
+	outPutFile = name;
+}

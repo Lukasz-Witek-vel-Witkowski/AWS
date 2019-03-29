@@ -13,6 +13,7 @@ public:
 	Manager(std::string data);
 	void setNameFolder(std::string name);
 	int sizeProduction();
+	int size();
 	void fileSearch();
 	std::string& nextFile();
 	void resetIterator();

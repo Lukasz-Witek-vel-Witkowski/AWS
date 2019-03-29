@@ -21,14 +21,8 @@
     <ClCompile Include="Manager.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Record.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Section.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="File.cpp">
       <Filter>Source Files</Filter>
@@ -41,13 +35,7 @@
     <ClInclude Include="Manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Record.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Section.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="File.h">

@@ -51,6 +51,9 @@ void Manager::resetIterator() {
 	iterator = 0;
 }
 int Manager::sizeProduction() {
-	return vFile.size()-iterator;
+	return (int)((int)vFile.size()-(int)iterator);
+}
+int Manager::size() {
+	return (int)vFile.size();
 }
 Manager::~Manager() {}

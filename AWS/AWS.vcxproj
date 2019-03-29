@@ -119,17 +119,13 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Manager.cpp" />
-    <ClCompile Include="Record.cpp" />
-    <ClCompile Include="Section.cpp" />
     <ClCompile Include="Segment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Manager.h" />
-    <ClInclude Include="Record.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Section.h" />
     <ClInclude Include="Segment.h" />
   </ItemGroup>
   <ItemGroup>

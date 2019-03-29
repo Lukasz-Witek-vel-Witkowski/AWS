@@ -8,16 +8,13 @@ void _SegmentF::config() {
 _SegmentF::_SegmentF() {
 	config();
 }
-_SegmentF::~_SegmentF() {
-	//clear();
-}
+_SegmentF::~_SegmentF() {}
 _SegmentF::_SegmentF(const _SegmentF& s) {
 	if (this != &s) *this = s;
 }
 _SegmentF& _SegmentF::operator=(const _SegmentF& s) {
 	if (this == &s) return *this;
 	if (*this == s) return *this;
-	//clear();
 	config();
 	int i;
 	for (i = 0; i < maxIterator; i++) {
@@ -103,8 +100,7 @@ long& _SegmentF::getTimer(int i, int iterator) {
 		default:							break;
 		}
 	}
-	long l = 0;
-	return l;
+	return timer0[maxIterator-1];
 }
 float& _SegmentF::getChAfter(int i, int iterator) {
 	if (iterator >= 0 && iterator < maxIterator) {
@@ -118,8 +114,7 @@ float& _SegmentF::getChAfter(int i, int iterator) {
 		default:							break;
 		}
 	}
-	float f = 0.0;
-	return f;
+	return ch0After[maxIterator-1];
 }
 float& _SegmentF::getChBefore(int i, int iterator) {
 	if (iterator >= 0 && iterator < maxIterator) {
@@ -133,8 +128,7 @@ float& _SegmentF::getChBefore(int i, int iterator) {
 		default:							break;
 		}
 	}
-	float f = 0.0;
-	return f;
+	return ch0After[maxIterator - 1];
 }
 int _SegmentF::getChDegetal(int i, int iterator) {
 	if (iterator >= 0 && iterator < maxIterator) {
@@ -168,10 +162,6 @@ void _SegmentF::loadData(std::istream& file) {
 	else {
 		std::string value, yong;
 		std::size_t ptr; 
-		/*if(iterator==0&&program==ch0)
-		file.seekg(-1 * ((int)temp.size()+2), std::ios::cur);
-		else
-		file.seekg(-1 * ((int)temp.size()+3), std::ios::cur);*/
 		switch (program) {
 		case ch0:
 			cutValue(temp, value, ptr);
@@ -179,7 +169,7 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch0After[iterator] = (float)atof(value.c_str());
 			ch0Before[iterator] = (float)atof(temp.c_str());
-			std::cout <<" "<<iterator<<" "<< timer0[iterator] << " " << ch0After[iterator] << " " << ch0Before[iterator] << "\n";
+			//std::cout <<" "<<iterator<<" "<< timer0[iterator] << " " << ch0After[iterator] << " " << ch0Before[iterator] << "\n";
 			iterator++; break;
 		case ch1:
 			cutValue(temp, value, ptr);
@@ -187,7 +177,7 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch1After[iterator] = (float)atof(value.c_str());
 			ch1Before[iterator] = (float)atof(temp.c_str());
-			std::cout <<" "<< iterator << " " << timer1[iterator] << " " << ch1After[iterator] << " " << ch1Before[iterator] << "\n";
+			//std::cout <<" "<< iterator << " " << timer1[iterator] << " " << ch1After[iterator] << " " << ch1Before[iterator] << "\n";
 			iterator++; break;
 		case ch2:
 			cutValue(temp, value, ptr);
@@ -195,7 +185,7 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch2After[iterator] = (float)atof(value.c_str());
 			ch2Before[iterator] = (float)atof(temp.c_str());
-			std::cout <<" "<< iterator << " " << timer2[iterator] << " " << ch2After[iterator] << " " << ch2Before[iterator] << "\n";
+			//std::cout <<" "<< iterator << " " << timer2[iterator] << " " << ch2After[iterator] << " " << ch2Before[iterator] << "\n";
 			iterator++; break;
 		case digital:
 			cutValue(temp, value, ptr);
@@ -203,17 +193,15 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch1degetal[iterator] = atoi(value.c_str());
 			ch2degetal[iterator] = atoi(temp.c_str());
-			std::cout <<" "<< iterator << " " << ch0degetal[iterator] << " " << ch1degetal[iterator] << " " << ch2degetal[iterator] << "\n";
+			//std::cout <<" "<< iterator << " " << ch0degetal[iterator] << " " << ch1degetal[iterator] << " " << ch2degetal[iterator] << "\n";
 			iterator++; break;
 		}
-		//std::getline(file, temp);
 	}
 }
 bool& _SegmentF::isFull() {
 	return full;
 }
 void _SegmentF::reset() {
-	//clear();
 	config();
 }
 int _SegmentF::getIterator() {

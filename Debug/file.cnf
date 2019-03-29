@@ -1,0 +1,4 @@
+#scierzka do katalogu z plikami
+100 ..\test
+#sciezka do katalogu z wyjsciowymi plikami
+200 ..\output

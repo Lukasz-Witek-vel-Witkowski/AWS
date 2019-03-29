@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
 enum Program {
 	ch0,
 	ch1,
@@ -11,7 +12,6 @@ enum Program {
 	digital
 };
 constexpr auto maxIterator = 1024;
-//void cutValue(std::string& data, std::string& value, std::size_t& ptr);
 struct _SegmentF
 {
 private:
@@ -31,7 +31,6 @@ private:
 	bool full;
 	int iterator;
 	void config();
-	//void clear();
 public:
 	_SegmentF();
 	_SegmentF(const _SegmentF& s);

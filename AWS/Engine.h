@@ -14,7 +14,6 @@ public:
 	void run();
 	~Engine();
 private:
-	void configurationIterator();
 	void analisesListFile();
 	Manager manager;
 	char program;
@@ -29,8 +28,9 @@ private:
 	File* filePointer;
 	std::string nameFolder;
 	std::string outputFolder;
+	std::string outPutFile;
 };
-void fLoadFile(File* file, short id, std::string name, std::string output);
+void fLoadFile(File* file, short id, std::string name, std::string output, std::string outputFile);
 //void fPerformance(File* file,short id);
 void fSaveFile(File* file,short id);
 #endif // !ENGINE_HPP
