@@ -45,16 +45,17 @@ void Engine::loadFileConfig() {
 void Engine::run() {
 	std::cout << "\n";
 	while (manager.sizeProduction() > 0) {
-		filePointer = new File[manager.size()];
+		filePointer = new File;
 		//system("cls");
 		std::cout << "Przetwarzanie "<<iteratorLoadFile+1<<" z "<<manager.size()<<"\n";
 		analisesListFile();
-		filePointer[iteratorLoadFile].setNameFile(nameFolder + "\\" + manager.nextFile());
-		filePointer[iteratorLoadFile].setOutputFolder(outputFolder);
-		filePointer[iteratorLoadFile].setOutPutFile(outPutFile);
-		filePointer[iteratorLoadFile].loadFile();
-		filePointer[iteratorLoadFile].saveFile();
+		filePointer->setNameFile(nameFolder + "\\" + manager.nextFile());
+		filePointer->setOutputFolder(outputFolder);
+		filePointer->setOutPutFile(outPutFile);
+		filePointer->loadFile();
+		filePointer->saveFile();
 		iteratorLoadFile++;
+		delete filePointer;
 	}
 }
 void Engine::analisesListFile() {
@@ -87,7 +88,7 @@ void Engine::analisesListFile() {
 }
 Engine::~Engine()
 {
-	delete[] filePointer;
+	delete filePointer;
 }
 void fLoadFile(File* file,short id ,std::string name, std::string output,std::string outPutFile) {
 	file[id].clear();
