@@ -1,4 +1,0 @@
-Press any key to continue . . . 
-(cd && dir /b ..\test) >> fileList.ini
-Przetwarzanie 1 z 2
-Przetwarzanie 2 z 2
