@@ -5,7 +5,6 @@ Engine::Engine()
 	loadFileConfig(); //wczytywanie pliku konfiguracyjnego
 	manager.setNameFolder(nameFolder);
 	manager.fileSearch();
-	filePointer = new File[sizeFiles];
 	program = '1';
 	activeLoadFile = false;
 	activePerformance = false;
@@ -46,7 +45,8 @@ void Engine::loadFileConfig() {
 void Engine::run() {
 	std::cout << "\n";
 	while (manager.sizeProduction() > 0) {
-		system("cls");
+		filePointer = new File[manager.size()];
+		//system("cls");
 		std::cout << "Przetwarzanie "<<iteratorLoadFile+1<<" z "<<manager.size()<<"\n";
 		analisesListFile();
 		filePointer[iteratorLoadFile].setNameFile(nameFolder + "\\" + manager.nextFile());
