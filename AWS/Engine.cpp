@@ -43,7 +43,7 @@ void Engine::loadFileConfig() {
 	}
 }
 void Engine::run() {
-	std::cout << "\n";
+	std::cout << "\n"; 
 	while (manager.sizeProduction() > 0) {
 		filePointer = new File;
 		//system("cls");
