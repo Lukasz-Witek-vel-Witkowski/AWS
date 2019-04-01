@@ -4,7 +4,6 @@
 #include <fstream>
 #include <string>
 #include <iostream>
-#include <vector>
 enum Program {
 	ch0,
 	ch1,
@@ -24,11 +23,12 @@ private:
 	float ch1Before[maxIterator];
 	float ch2After[maxIterator];
 	float ch2Before[maxIterator];
-	int ch0degetal[maxIterator];
-	int ch1degetal[maxIterator];
-	int ch2degetal[maxIterator];
+	int ch0digital[maxIterator];
+	int ch1digital[maxIterator];
+	int ch2digital[maxIterator];
 	Program program;
 	bool full;
+	std::string nameFile;
 	int iterator;
 	void config();
 public:
@@ -41,6 +41,7 @@ public:
 	void setChAfter(int i, int iterator,float& value);
 	void setChBefore(int i,int iterator, float& value);
 	void setChDegetal(int i, int iterator,int& value);
+	void setNameFile(std::string name);
 	long& getTimer(int i, int iterator);
 	bool& isFull();
 	float& getChAfter(int i, int iterator);

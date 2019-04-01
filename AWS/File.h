@@ -10,17 +10,16 @@ public:
 	void setNameFile(std::string name);
 	void setOutputFolder(std::string name);
 	void setOutPutFile(std::string name);
-	void addSegment(_SegmentF& s);
-	_SegmentF& getSegment(unsigned int value);
+	//void addSegment(_SegmentF& s);
+	//_SegmentF& getSegment(unsigned int value);
 	void loadFile();
 	_SegmentF& getTemp();
-	bool eof(std::istream& file);
-	unsigned int getiterator();
-	//void preparationFile();
-	//void settoSektorF(Record& r);
+	//bool eof(std::istream& file);
+	//unsigned int getiterator();
 	void saveFile();
+	void SetOutPutFileCanal();
 	void setCanal(int Canal);
-	void updateCanal();
+	//void updateCanal();
 	int getCanal();
 	void clear();
 	~File();
@@ -29,7 +28,7 @@ private:
 	int canal;
 	int iteratorSegments;
 	int iteratorChanel;
-	std::vector<_SegmentF> vSegment; //tablica dynamiczna
+	//std::vector<_SegmentF> vSegment; //tablica dynamiczna
 	std::string nameFile;
 	std::string outPutFile;
 	std::string outputFolder;

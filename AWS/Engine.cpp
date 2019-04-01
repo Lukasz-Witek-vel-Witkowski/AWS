@@ -6,11 +6,11 @@ Engine::Engine()
 	manager.setNameFolder(nameFolder);
 	manager.fileSearch();
 	program = '1';
-	activeLoadFile = false;
-	activePerformance = false;
-	activeSave = false;
-	empty = true;
-	fullProduction = false;
+	//activeLoadFile = false;
+	//activePerformance = false;
+	//activeSave = false;
+	//empty = true;
+	//fullProduction = false;
 	iteratorLoadFile = 0;
 }
 void Engine::loadFileConfig() {
@@ -48,7 +48,7 @@ void Engine::run() {
 		filePointer = new File;
 		//system("cls");
 		std::cout << "Przetwarzanie "<<iteratorLoadFile+1<<" z "<<manager.size()<<"\n";
-		analisesListFile();
+		//analisesListFile();
 		filePointer->setNameFile(nameFolder + "\\" + manager.nextFile());
 		filePointer->setOutputFolder(outputFolder);
 		filePointer->setOutPutFile(outPutFile);
@@ -58,7 +58,7 @@ void Engine::run() {
 		delete filePointer;
 	}
 }
-void Engine::analisesListFile() {
+/*void Engine::analisesListFile() {
 	switch (manager.sizeProduction()) {
 		case 1:
 			if (!empty) {
@@ -85,18 +85,18 @@ void Engine::analisesListFile() {
 			fullProduction = true;
 			break;
 		}
-}
+}*/
 Engine::~Engine()
 {
 	delete filePointer;
 }
-void fLoadFile(File* file,short id ,std::string name, std::string output,std::string outPutFile) {
+/*void fLoadFile(File* file,short id ,std::string name, std::string output,std::string outPutFile) {
 	file[id].clear();
 	file[id].setNameFile(name);
 	file[id].setOutputFolder(output);
 	file[id].setOutPutFile(outPutFile);
 	file[id].loadFile();
-}
-void fSaveFile(File* file, short id) {
+}*/
+/*void fSaveFile(File* file, short id) {
 	file[id].saveFile();
-}
+}*/

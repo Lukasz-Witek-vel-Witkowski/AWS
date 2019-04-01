@@ -20,7 +20,7 @@ void File::loadFile() {
 	std::ifstream file(nameFile.c_str());
 	int i = 1;
 	if (file.is_open()) {
-		while (eof(file)) { //warunek petli!!!
+		while (!file.eof()) { //warunek petli!!!
 			file >> *this;
 		}
 		file.close();
@@ -31,27 +31,26 @@ void File::loadFile() {
 		x.performance();
 	}
 }*/
-bool File::eof(std::istream& file) {
+/*bool File::eof(std::istream& file) {
 	if (!file.eof()) {
 		if (temp.getIterator() == (maxIterator - 1)) return false;
 		return true;
 	}
 	else
 		return false;
-}
+}*/
 void File::saveFile() {
 	std::ofstream file;
 	int iterator = 0;
-	std::string data = outputFolder + "\\" + outPutFile;
-	file.open(data.c_str(),std::ios::app);
+	std::string data = outputFolder + "\\" + nameFile.substr(0,nameFile.size()-4) + ".bin";
+	std::cout << data << "\n";
+	file.open(data.c_str());
 	if (file.good()) {
-		for (auto& x : vSegment) {
-			file.write(reinterpret_cast <char *>(&x), sizeof(_SegmentF)); //rzutowanie na zapis binarny
-		}
+			file.write(reinterpret_cast <char *>(&temp), sizeof(_SegmentF)); //rzutowanie na zapis binarny
 		file.close();
 	}
 }
-void  File::addSegment(_SegmentF& s) {
+/*void  File::addSegment(_SegmentF& s) {
 	vSegment.push_back(s);
 }
 _SegmentF& File::getSegment(unsigned int value) {
@@ -65,33 +64,28 @@ _SegmentF& File::getSegment(unsigned int value) {
 }
 unsigned int File::getiterator() {
 	return (unsigned)vSegment.size();
-}
+}*/
 File::~File()
 {
 	//delete[] segments;
 }
 std::istream& operator>>(std::istream& file, File& f) {
 	f.getTemp().loadData(file);
-	//r.setCanal(f.getCanal());
-	if (f.getTemp().isFull()) {
+	/*if (f.getTemp().isFull()) {
 		f.addSegment(f.getTemp());
 		f.getTemp().reset();
-	}
+	}*/
 	return file;
 }
-void File::updateCanal() {
+/*void File::updateCanal() {
 	iteratorChanel = 0;
 	canal++;
 	if (canal > 4) {
 		canal = 0;
 		iteratorSegments++;
 	}
-}
+}*/
 void File::clear() {
-	//for (auto x : vSegment) {
-	//	x.clear();
-	//}
-	vSegment.clear();
 	nameFile.clear();
 }
 void File::setOutputFolder(std::string name) {
@@ -100,22 +94,9 @@ void File::setOutputFolder(std::string name) {
 _SegmentF& File::getTemp() {
 	return temp;
 }
-/*void File::settoSektorF(Record& r) {
-	switch (r.getCanal()) {
-	case 0:
-	case 1:
-	case 2:
-		segments[iteratorSegments].setTimer(r.getCanal(), iteratorChanel, r.getTime());
-		segments[iteratorSegments].setChAfter(r.getCanal(), iteratorChanel, r.getAfter());
-		segments[iteratorSegments].setChBefore(r.getCanal(), iteratorChanel, r.getBefore());
-		break;
-	case 3:
-		segments[iteratorSegments].setChDegetal(0, iteratorChanel, r.getValue(0));
-		segments[iteratorSegments].setChDegetal(1, iteratorChanel, r.getValue(1));
-		segments[iteratorSegments].setChDegetal(2, iteratorChanel, r.getValue(2));
-		break;
-	}
-}*/
 void File::setOutPutFile(std::string name) {
 	outPutFile = name;
+}
+void File::SetOutPutFileCanal() {
+
 }

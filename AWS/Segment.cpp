@@ -23,13 +23,13 @@ _SegmentF& _SegmentF::operator=(const _SegmentF& s) {
 		timer2[i] = s.timer2[i];
 		ch0After[i] = s.ch0After[i];
 		ch0Before[i] = s.ch0Before[i];
-		ch0degetal[i] = s.ch0degetal[i];
+		ch0digital[i] = s.ch0digital[i];
 		ch1After[i] = s.ch1After[i];
 		ch1Before[i] = s.ch1Before[i];
-		ch1degetal[i] = s.ch1degetal[i];
+		ch1digital[i] = s.ch1digital[i];
 		ch2After[i] = s.ch2After[i];
 		ch2Before[i] = s.ch2Before[i];
-		ch2degetal[i] = s.ch2degetal[i];
+		ch2digital[i] = s.ch2digital[i];
 	}
 	return *this;
 }
@@ -79,11 +79,11 @@ void _SegmentF::setChDegetal(int i, int iterator,int& value) {
 	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
 		switch (i) {
 		case 0:
-			ch0degetal[iterator] = value;	break;
+			ch0digital[iterator] = value;	break;
 		case 1:
-			ch1degetal[iterator] = value;	break;
+			ch1digital[iterator] = value;	break;
 		case 2:
-			ch2degetal[iterator] = value;	break;
+			ch2digital[iterator] = value;	break;
 		default:							break;
 		}
 	}
@@ -134,11 +134,11 @@ int _SegmentF::getChDegetal(int i, int iterator) {
 	if (iterator >= 0 && iterator < maxIterator) {
 		switch (i) {
 		case 0:
-			return ch0degetal[iterator];
+			return ch0digital[iterator];
 		case 1:
-			return ch1degetal[iterator];
+			return ch1digital[iterator];
 		case 2:
-			return ch2degetal[iterator];
+			return ch2digital[iterator];
 		default:							break;
 		}
 	}
@@ -189,10 +189,10 @@ void _SegmentF::loadData(std::istream& file) {
 			iterator++; break;
 		case digital:
 			cutValue(temp, value, ptr);
-			ch0degetal[iterator] = atoi(value.c_str());
+			ch0digital[iterator] = atoi(value.c_str());
 			cutValue(temp, value, ptr);
-			ch1degetal[iterator] = atoi(value.c_str());
-			ch2degetal[iterator] = atoi(temp.c_str());
+			ch1digital[iterator] = atoi(value.c_str());
+			ch2digital[iterator] = atoi(temp.c_str());
 			//std::cout <<" "<< iterator << " " << ch0degetal[iterator] << " " << ch1degetal[iterator] << " " << ch2degetal[iterator] << "\n";
 			iterator++; break;
 		}
@@ -211,4 +211,7 @@ void _SegmentF::cutValue(std::string& data, std::string& value, std::size_t& ptr
 	ptr = data.find('\t');
 	value = data.substr(ptr);
 	data = data.replace(0, ptr, "");
+}
+void _SegmentF::setNameFile(std::string name) {
+	nameFile = name;
 }
