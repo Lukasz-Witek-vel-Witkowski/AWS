@@ -4,6 +4,10 @@ void _SegmentF::config() {
 	program = Program::ch0;
 	full = false;
 	iterator = 0;
+	itrCh0 = 0;
+	itrCh1 = 0;
+	itrCh2 = 0;
+	itrDigital = 0;
 }
 _SegmentF::_SegmentF() {
 	config();
@@ -30,22 +34,26 @@ _SegmentF& _SegmentF::operator=(const _SegmentF& s) {
 		ch2After[i] = s.ch2After[i];
 		ch2Before[i] = s.ch2Before[i];
 		ch2digital[i] = s.ch2digital[i];
+		itrCh0 = s.itrCh0;
+		itrCh1 = s.itrCh1;
+		itrCh2 = s.itrCh2;
+		itrDigital = s.itrDigital;
 	}
 	return *this;
 }
 bool _SegmentF::operator==(const _SegmentF& s) {
-	return false;
+	return false; //do rozwiniecia
 }
 void _SegmentF::setTimer(int i, int iterator, long& value) {
 	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
 		switch (i) {
 		case 0:
-			timer0[iterator] = value;	break;
+			timer0[iterator] = value; break;
 		case 1:
-			timer1[iterator] = value;	break;
+			timer1[iterator] = value; break;
 		case 2:
-			timer2[iterator] = value;	break;
-		default:						break;
+			timer2[iterator] = value; break;
+		default:					  break;
 		}
 	}
 }
@@ -53,7 +61,7 @@ void _SegmentF::setChAfter(int i,int iterator, float& value) {
 	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
 		switch (i) {
 		case 0:
-			ch0After[iterator] = value;	break;
+			ch0After[iterator] = value; break;
 		case 1:
 			ch1After[iterator] = value;	break;
 		case 2:
@@ -66,12 +74,12 @@ void _SegmentF::setChBefore(int i, int iterator ,float& value) {
 	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
 		switch (i) {
 		case 0:
-			ch0Before[iterator] = value;	break;
+			ch0Before[iterator] = value; break;
 		case 1:
-			ch1Before[iterator] = value;	break;
+			ch1Before[iterator] = value; break;
 		case 2:
-			ch2Before[iterator] = value;	break;
-		default:							break;
+			ch2Before[iterator] = value; break;
+		default:						 break;
 		}
 	}
 }
@@ -79,12 +87,12 @@ void _SegmentF::setChDigital(int i, int iterator,int& value) {
 	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
 		switch (i) {
 		case 0:
-			ch0digital[iterator] = value;	break;
+			ch0digital[iterator] = value; break;
 		case 1:
-			ch1digital[iterator] = value;	break;
+			ch1digital[iterator] = value; break;
 		case 2:
-			ch2digital[iterator] = value;	break;
-		default:							break;
+			ch2digital[iterator] = value; break;
+		default:						  break;
 		}
 	}
 }
@@ -169,7 +177,7 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch0After[iterator] = (float)atof(value.c_str());
 			ch0Before[iterator] = (float)atof(temp.c_str());
-			//std::cout <<" "<<iterator<<" "<< timer0[iterator] << " " << ch0After[iterator] << " " << ch0Before[iterator] << "\n";
+			itrCh0++;
 			iterator++; break;
 		case ch1:
 			cutValue(temp, value, ptr);
@@ -177,7 +185,7 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch1After[iterator] = (float)atof(value.c_str());
 			ch1Before[iterator] = (float)atof(temp.c_str());
-			//std::cout <<" "<< iterator << " " << timer1[iterator] << " " << ch1After[iterator] << " " << ch1Before[iterator] << "\n";
+			itrCh1++;
 			iterator++; break;
 		case ch2:
 			cutValue(temp, value, ptr);
@@ -185,7 +193,7 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch2After[iterator] = (float)atof(value.c_str());
 			ch2Before[iterator] = (float)atof(temp.c_str());
-			//std::cout <<" "<< iterator << " " << timer2[iterator] << " " << ch2After[iterator] << " " << ch2Before[iterator] << "\n";
+			itrCh2++;
 			iterator++; break;
 		case digital:
 			cutValue(temp, value, ptr);
@@ -193,7 +201,7 @@ void _SegmentF::loadData(std::istream& file) {
 			cutValue(temp, value, ptr);
 			ch1digital[iterator] = atoi(value.c_str());
 			ch2digital[iterator] = atoi(temp.c_str());
-			//std::cout <<" "<< iterator << " " << ch0degetal[iterator] << " " << ch1degetal[iterator] << " " << ch2degetal[iterator] << "\n";
+			itrDigital++;
 			iterator++; break;
 		}
 	}

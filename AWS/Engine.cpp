@@ -6,11 +6,6 @@ Engine::Engine()
 	manager.setNameFolder(nameFolder);
 	manager.fileSearch();
 	program = '1';
-	//activeLoadFile = false;
-	//activePerformance = false;
-	//activeSave = false;
-	//empty = true;
-	//fullProduction = false;
 	iteratorLoadFile = 0;
 }
 void Engine::loadFileConfig() {
@@ -33,7 +28,7 @@ void Engine::loadFileConfig() {
 						_sleep(100);
 						break; }
 					case 3:
-					{outPutFile = temp.substr(4, temp.size() - 1);
+					{outPutFiles = temp.substr(4, temp.size() - 1);
 					break; }
 					}
 				}
@@ -46,62 +41,19 @@ void Engine::run() {
 	std::cout << "\n"; 
 	std::string file;
 	while (manager.sizeProduction() > 0) {
-		//system("cls");
 		std::cout << "Przetwarzanie "<<iteratorLoadFile+1<<" z "<<manager.size()<<"\n";
-		//analisesListFile();
 		file = manager.nextFile();
 		filePointer.setPath(nameFolder + "\\" + file);
 		filePointer.setNameFile(file);
 		filePointer.setOutputFolder(outputFolder);
-		filePointer.setOutPutFile(outPutFile);
+		filePointer.setOutPutFiles(outPutFiles);
 		filePointer.loadFile();
 		filePointer.saveFile();
 		iteratorLoadFile++;
 	}
 	saveDataChanel();
 }
-/*void Engine::analisesListFile() {
-	switch (manager.sizeProduction()) {
-		case 1:
-			if (!empty) {
-				program = '5';
-			}
-			else {
-				program = '1';
-			}
-			fullProduction = false;
-			break;
-		case 2:
-			if (!empty) {
-				program = '4';
-			}
-			else {
-				program = '2';
-			}
-			fullProduction = false;
-			break;
-		default:
-			if (!empty) {
-				program = '3';
-			}
-			fullProduction = true;
-			break;
-		}
-}*/
-Engine::~Engine()
-{
-	//delete filePointer;
-}
-/*void fLoadFile(File* file,short id ,std::string name, std::string output,std::string outPutFile) {
-	file[id].clear();
-	file[id].setNameFile(name);
-	file[id].setOutputFolder(output);
-	file[id].setOutPutFile(outPutFile);
-	file[id].loadFile();
-}*/
-/*void fSaveFile(File* file, short id) {
-	file[id].saveFile();
-}*/
+Engine::~Engine(){}
 void Engine::saveDataChanel() {
 	manager.resetIterator();
 	int iter=0;

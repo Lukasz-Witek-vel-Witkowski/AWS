@@ -13,6 +13,11 @@ enum Program {
 constexpr auto maxIterator = 1024;
 struct _SegmentF
 {
+public:
+	int itrCh0;
+	int itrCh1;
+	int itrCh2;
+	int itrDigital;
 private:
 	long timer0[maxIterator];
 	long timer1[maxIterator];

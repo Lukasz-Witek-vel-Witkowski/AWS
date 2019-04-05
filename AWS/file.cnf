@@ -1,6 +1,6 @@
-#scierzka do katalogu z plikami
+#sciezka do katalogu z plikami
 100 ..\test
 #sciezka do katalogu wyjsciowego
-200 ..\output
-#nazwa pliku wynikowego
-300 outPut.bin
+200 ..\OutPutTest
+#sciezka do katalogu z wyodrebnionymi danymi ze struktur
+300 ..\OutPutFiles

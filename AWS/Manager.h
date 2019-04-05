@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 constexpr auto fileList = "fileList.ini";
-#pragma warning(disable : 4996)
+#pragma warning(disable : 4996) // aby nie wywalal bedu zwiazanego ze stosowaniem satrego sposobu programowania
 #include <fstream>
 class Manager {
 public:

@@ -15,25 +15,16 @@ public:
 	void saveDataChanel();
 	~Engine();
 private:
-	//void analisesListFile();
 	Manager manager;
 	char program;
-	//bool activeLoadFile;
-	//bool activePerformance;
-	//bool activeSave;
-	//bool empty;
-	//bool fullProduction;
 	short iteratorLoadFile;
 	short iteratorPerformance;
 	short iteratorSave;
 	File filePointer;
 	std::string nameFolder;
 	std::string outputFolder;
-	std::string outPutFile;
+	std::string outPutFiles;
 };
-//void fLoadFile(File* file, short id, std::string name, std::string output, std::string outputFile);
-//void fPerformance(File* file,short id);
-//void fSaveFile(File* file,short id);
 #endif // !ENGINE_HPP
 
 
