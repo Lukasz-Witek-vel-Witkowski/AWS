@@ -40,13 +40,13 @@ public:
 	void setTimer(int i, int iterator,long& value);
 	void setChAfter(int i, int iterator,float& value);
 	void setChBefore(int i,int iterator, float& value);
-	void setChDegetal(int i, int iterator,int& value);
+	void setChDigital(int i, int iterator,int& value);
 	void setNameFile(std::string name);
 	long& getTimer(int i, int iterator);
 	bool& isFull();
 	float& getChAfter(int i, int iterator);
 	float& getChBefore(int i, int iterator);
-	int getChDegetal(int i, int iterator);
+	int getChDigital(int i, int iterator);
 	void cutValue(std::string& data, std::string& value, std::size_t& ptr);
 	void reset();
 	int getIterator();

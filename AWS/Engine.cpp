@@ -44,19 +44,21 @@ void Engine::loadFileConfig() {
 }
 void Engine::run() {
 	std::cout << "\n"; 
+	std::string file;
 	while (manager.sizeProduction() > 0) {
-		filePointer = new File;
 		//system("cls");
 		std::cout << "Przetwarzanie "<<iteratorLoadFile+1<<" z "<<manager.size()<<"\n";
 		//analisesListFile();
-		filePointer->setNameFile(nameFolder + "\\" + manager.nextFile());
-		filePointer->setOutputFolder(outputFolder);
-		filePointer->setOutPutFile(outPutFile);
-		filePointer->loadFile();
-		filePointer->saveFile();
+		file = manager.nextFile();
+		filePointer.setPath(nameFolder + "\\" + file);
+		filePointer.setNameFile(file);
+		filePointer.setOutputFolder(outputFolder);
+		filePointer.setOutPutFile(outPutFile);
+		filePointer.loadFile();
+		filePointer.saveFile();
 		iteratorLoadFile++;
-		delete filePointer;
 	}
+	saveDataChanel();
 }
 /*void Engine::analisesListFile() {
 	switch (manager.sizeProduction()) {
@@ -88,7 +90,7 @@ void Engine::run() {
 }*/
 Engine::~Engine()
 {
-	delete filePointer;
+	//delete filePointer;
 }
 /*void fLoadFile(File* file,short id ,std::string name, std::string output,std::string outPutFile) {
 	file[id].clear();
@@ -100,3 +102,13 @@ Engine::~Engine()
 /*void fSaveFile(File* file, short id) {
 	file[id].saveFile();
 }*/
+void Engine::saveDataChanel() {
+	manager.resetIterator();
+	int iter=0;
+	filePointer.setOutputFolder(nameFolder);
+	while (manager.sizeProduction()) {
+		filePointer.setIterator(iteratorLoadFile);
+		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size() << "\n";
+		filePointer.SetOutPutFileCanal(manager.nextFile());
+	}
+}

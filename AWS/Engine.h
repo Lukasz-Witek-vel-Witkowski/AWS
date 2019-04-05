@@ -12,6 +12,7 @@ public:
 	Engine();
 	void loadFileConfig();
 	void run();
+	void saveDataChanel();
 	~Engine();
 private:
 	//void analisesListFile();
@@ -25,7 +26,7 @@ private:
 	short iteratorLoadFile;
 	short iteratorPerformance;
 	short iteratorSave;
-	File* filePointer;
+	File filePointer;
 	std::string nameFolder;
 	std::string outputFolder;
 	std::string outPutFile;

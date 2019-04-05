@@ -75,7 +75,7 @@ void _SegmentF::setChBefore(int i, int iterator ,float& value) {
 		}
 	}
 }
-void _SegmentF::setChDegetal(int i, int iterator,int& value) {
+void _SegmentF::setChDigital(int i, int iterator,int& value) {
 	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
 		switch (i) {
 		case 0:
@@ -130,7 +130,7 @@ float& _SegmentF::getChBefore(int i, int iterator) {
 	}
 	return ch0After[maxIterator - 1];
 }
-int _SegmentF::getChDegetal(int i, int iterator) {
+int _SegmentF::getChDigital(int i, int iterator) {
 	if (iterator >= 0 && iterator < maxIterator) {
 		switch (i) {
 		case 0:
