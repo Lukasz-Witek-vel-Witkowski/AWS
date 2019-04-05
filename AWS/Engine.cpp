@@ -2,6 +2,7 @@
 
 Engine::Engine()
 {
+	canal = false;
 	loadFileConfig(); //wczytywanie pliku konfiguracyjnego
 	manager.setNameFolder(nameFolder);
 	manager.fileSearch();
@@ -27,9 +28,21 @@ void Engine::loadFileConfig() {
 						system(TempName.c_str());
 						_sleep(100);
 						break; }
-					case 3:
-					{outPutFiles = temp.substr(4, temp.size() - 1);
+					case 3:{
+						outPutFiles = temp.substr(4, temp.size() - 1);
 					break; }
+					case 4: {
+						switch (temp[4])
+						{
+						case '0':
+							canal = false; break;
+						case '1':
+							canal = true; break;
+						default:
+							std::cout << "Nie poprawne dane w pliku konfiguracyjnym!\n";
+							break;
+						}
+						break;   }
 					}
 				}
 			}
@@ -40,18 +53,29 @@ void Engine::loadFileConfig() {
 void Engine::run() {
 	std::cout << "\n"; 
 	std::string file;
-	while (manager.sizeProduction() > 0) {
-		std::cout << "Przetwarzanie "<<iteratorLoadFile+1<<" z "<<manager.size()<<"\n";
-		file = manager.nextFile();
-		filePointer.setPath(nameFolder + "\\" + file);
-		filePointer.setNameFile(file);
+	if (!canal) {
+		while (manager.sizeProduction() > 0) {
+			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.size() << "\n";
+			file = manager.nextFile();
+			filePointer.setPath(nameFolder + "\\" + file);
+			filePointer.setNameFile(file);
+			filePointer.setOutputFolder(outputFolder);
+			filePointer.setOutPutFiles(outPutFiles);
+			filePointer.loadFile();
+			filePointer.saveFile();
+			iteratorLoadFile++;
+		}
+		saveDataChanel();
+	}
+	else {
+		manager.onAlternative();
+		manager.setNameFolder(outputFolder);
+		manager.fileSearch();
+		iteratorLoadFile = manager.size();
 		filePointer.setOutputFolder(outputFolder);
 		filePointer.setOutPutFiles(outPutFiles);
-		filePointer.loadFile();
-		filePointer.saveFile();
-		iteratorLoadFile++;
+		saveDataChanel();
 	}
-	saveDataChanel();
 }
 Engine::~Engine(){}
 void Engine::saveDataChanel() {

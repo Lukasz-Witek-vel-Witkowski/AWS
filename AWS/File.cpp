@@ -78,7 +78,7 @@ void File::SetOutPutFileCanal(std::string NameFile) {
 		dataOutdigital0 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital0.txt";
 		dataOutdigital1 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital1.txt";
 		dataOutdigital2 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital2.txt";
-		std::cout << dataIn << "\n";
+		//std::cout << dataIn << "\n";
 		std::cout << dataOutAfter0 << "\n";
 		in.open(dataIn.c_str());
 		if (in.good()) {

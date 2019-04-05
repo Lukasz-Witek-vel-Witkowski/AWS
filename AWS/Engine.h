@@ -17,6 +17,7 @@ public:
 private:
 	Manager manager;
 	char program;
+	bool canal;
 	short iteratorLoadFile;
 	short iteratorPerformance;
 	short iteratorSave;

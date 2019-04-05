@@ -17,6 +17,8 @@ public:
 	void fileSearch();
 	std::string& nextFile();
 	void resetIterator();
+	void onAlternative();
+	void offAlternative();
 	~Manager();
 private:
 	std::vector<std::string> vFile;
@@ -25,6 +27,7 @@ private:
 	std::string path;
 	bool active;
 	bool newName;
+	bool alterbative;
 	unsigned int iterator;
 };
 #endif // !MANAGER_HPP

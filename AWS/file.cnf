@@ -4,3 +4,5 @@
 200 ..\OutPutTest
 #sciezka do katalogu z wyodrebnionymi danymi ze struktur
 300 ..\OutPutFiles
+#ustawienia z przetwarzaniem plików (0 - przetwarzaj z wyjsciowych .txt / 1 - przetwarzaj z plików .bin )
+400 1

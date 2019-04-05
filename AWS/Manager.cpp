@@ -3,6 +3,7 @@
 Manager::Manager() {
 	iterator = 0;
 	active = false;
+	alterbative = false;
 	data = "";
 }
 Manager::Manager(std::string data) {
@@ -35,8 +36,13 @@ void Manager::fileSearch() {
 			temp_next = temp;
 			std::getline(file, temp);
 			if (temp.size() > 5) {
-				if (temp[temp.size()-4]=='.'&&temp[temp.size()-3]=='t'&&temp[temp.size()-2]=='x'&&temp[temp.size()-1]=='t') {
+				if (temp[temp.size()-4]=='.'&&temp[temp.size()-3]=='t'&&temp[temp.size()-2]=='x'&&temp[temp.size()-1]=='t'&&!alterbative) {
 					vFile.push_back(temp);
+				}
+				else {
+					if (temp[temp.size() - 4] == '.'&&temp[temp.size() - 3] == 'b'&&temp[temp.size() - 2] == 'i'&&temp[temp.size() - 1] == 'n' && alterbative) {
+						vFile.push_back(temp);
+					}
 				}
 			}
 		} while (temp_next != temp);
@@ -57,3 +63,9 @@ int Manager::size() {
 	return (int)vFile.size();
 }
 Manager::~Manager() {}
+void Manager::onAlternative() {
+	alterbative = true;
+}
+void Manager::offAlternative() {
+	alterbative = false;
+}
