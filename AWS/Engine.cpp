@@ -53,6 +53,10 @@ void Engine::loadFileConfig() {
 void Engine::run() {
 	std::cout << "\n"; 
 	std::string file;
+	file = "mkdir" + outPutFiles;
+	std::cout << file << "\n";
+	system(file.c_str());
+	_sleep(1000);
 	if (!canal) {
 		while (manager.sizeProduction() > 0) {
 			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.size() << "\n";
@@ -72,6 +76,7 @@ void Engine::run() {
 		manager.setNameFolder(outputFolder);
 		manager.fileSearch();
 		iteratorLoadFile = manager.size();
+		filePointer.setNameFile(file);
 		filePointer.setOutputFolder(outputFolder);
 		filePointer.setOutPutFiles(outPutFiles);
 		saveDataChanel();
@@ -81,7 +86,7 @@ Engine::~Engine(){}
 void Engine::saveDataChanel() {
 	manager.resetIterator();
 	int iter=0;
-	filePointer.setOutputFolder(nameFolder);
+	//filePointer.setOutputFolder(nameFolder);
 	while (manager.sizeProduction()) {
 		filePointer.setIterator(iteratorLoadFile);
 		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size() << "\n";

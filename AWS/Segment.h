@@ -47,12 +47,12 @@ public:
 	void setChBefore(int i,int iterator, float& value);
 	void setChDigital(int i, int iterator,int& value);
 	void setNameFile(std::string name);
-	long& getTimer(int i, int iterator);
+	long getTimer(int i, int iterator);
 	bool& isFull();
-	float& getChAfter(int i, int iterator);
-	float& getChBefore(int i, int iterator);
+	float getChAfter(int i, int iterator);
+	float getChBefore(int i, int iterator);
 	int getChDigital(int i, int iterator);
-	void cutValue(std::string& data, std::string& value, std::size_t& ptr);
+	void cutValue(std::string& data, std::string& valueAfter, std::string& valueBefore, std::size_t& ptr);
 	void reset();
 	int getIterator();
 	~_SegmentF();

@@ -27,7 +27,7 @@ void File::saveFile() {
 	int iterator = 0;
 	std::string data = outputFolder + "\\" + nameFile.substr(0,nameFile.size()-4) + ".bin";
 	std::cout << data << "\n";
-	file.open(data.c_str());
+	file.open(data.c_str(), std::ios_base::binary);
 	if (file.good()) {
 			file.write(reinterpret_cast <char *>(&temp), sizeof(_SegmentF)); //rzutowanie na zapis binarny
 			iteratorSegments++;
@@ -65,9 +65,7 @@ void File::SetOutPutFileCanal(std::string NameFile) {
 	std::string dataOutdigital1;
 	std::string dataOutdigital2;
 	int j;
-	dataIn = "mkdir" + outPutFiles;
-	system(dataIn.c_str());
-	for (int i = 0; i < iteratorSegments; i++) {
+	std::cout << "przetwarzanie pliku :" << NameFile << "\n";
 		dataIn = outputFolder + "\\" + NameFile.substr(0, NameFile.size() - 4) + ".bin";
 		dataOutAfter0 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_After0.txt";
 		dataOutAfter1 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_After1.txt";
@@ -78,9 +76,8 @@ void File::SetOutPutFileCanal(std::string NameFile) {
 		dataOutdigital0 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital0.txt";
 		dataOutdigital1 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital1.txt";
 		dataOutdigital2 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital2.txt";
-		//std::cout << dataIn << "\n";
-		std::cout << dataOutAfter0 << "\n";
-		in.open(dataIn.c_str());
+		in.open(dataIn.c_str() , std::ios_base::binary);
+		std::cout <<"plik do analizy: "<< dataIn << "\n";
 		if (in.good()) {
 			in.read(reinterpret_cast <char *>(&temp), sizeof(_SegmentF));
 			in.close(); //dal wielu blikow .bin!
@@ -89,67 +86,66 @@ void File::SetOutPutFileCanal(std::string NameFile) {
 		out.open(dataOutAfter0.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrCh0; j++) {
-				out << (long)temp.getChAfter(0, j) << " ";
+				out << (long long)temp.getChAfter(0, j) <<" ";
 			}
 			out.close();
 		}
 		out.open(dataOutAfter1.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrCh1; j++) {
-				out << (long)temp.getChAfter(1, j) << " ";
+				out << (long long)temp.getChAfter(1, j) << " ";
 			}
 			out.close();
 		}
 		out.open(dataOutAfter2.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrCh2; j++) {
-				out << (long)temp.getChAfter(2, j) << " ";
+				out << (long long)temp.getChAfter(2, j) << " ";
 			}
 			out.close();
 		}
 		out.open(dataOutBefore0.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrCh0; j++) {
-				out << (long)temp.getChBefore(0, j) << " ";
+				out << (long long)temp.getChBefore(0, j) << " ";
 			}
 			out.close();
 		}
 		out.open(dataOutBefore1.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrCh1; j++) {
-				out << (long)temp.getChBefore(1, j) << " ";
+				out << (long long)temp.getChBefore(1, j) << " ";
 			}
 			out.close();
 		}
 		out.open(dataOutBefore2.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrCh2; j++) {
-				out << (long)temp.getChBefore(2, j) << " ";
+				out << (long long)temp.getChBefore(2, j) << " ";
 			}
 			out.close();
 		}
 		out.open(dataOutdigital0.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrDigital; j++) {
-				out << (long)temp.getChDigital(0, j) << " ";
+				out << (long long)temp.getChDigital(0, j) << " ";
 			}
 			out.close();
 		}
 		out.open(dataOutdigital1.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrDigital; j++) {
-				out << (long)temp.getChDigital(1, j) << " ";
+				out << (long long)temp.getChDigital(1, j) << " ";
 			}
 			out.close();
 		}
 		out.open(dataOutdigital2.c_str());
 		if (out.good()) {
 			for (j = 0; j < temp.itrDigital; j++) {
-				out << (long)temp.getChDigital(2, j) << " ";
+				out << (long long)temp.getChDigital(2, j) << " ";
 			}
 			out.close();
 		}
-	}
 
 }
 void File::setPath(std::string data) {
