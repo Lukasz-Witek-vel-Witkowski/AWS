@@ -5,8 +5,9 @@ File::File()
 	iteratorChanel = 0;
 	canal = 0;
 }
-void File::setNameFile(std::string name) {
+void File::setNameFile(std::string& name) {
 	nameFile = name;
+	std::cout <<"nazwa pliku: "<< nameFile << "\n";
 }
 void File::setIterator(int iterator) {
 	iteratorSegments = iterator;
@@ -14,6 +15,7 @@ void File::setIterator(int iterator) {
 int File::getCanal() { return canal; }
 void File::loadFile() {
 	std::ifstream file(path.c_str());
+	std::cout <<"odczyt: "<< path << "\n";
 	int i = 1;
 	if (file.is_open()) {
 		while (!file.eof()) { //warunek petli!!!
@@ -28,6 +30,7 @@ void File::saveFile() {
 	std::string data = outputFolder + "\\" + nameFile.substr(0,nameFile.size()-4) + ".bin";
 	std::cout << data << "\n";
 	file.open(data.c_str(), std::ios_base::binary);
+	std::cout << data << "\n";
 	if (file.good()) {
 			file.write(reinterpret_cast <char *>(&temp), sizeof(_SegmentF)); //rzutowanie na zapis binarny
 			iteratorSegments++;
@@ -65,6 +68,7 @@ void File::SetOutPutFileCanal(std::string NameFile) {
 	std::string dataOutdigital1;
 	std::string dataOutdigital2;
 	int j;
+	temp.clear();
 	std::cout << "przetwarzanie pliku :" << NameFile << "\n";
 		dataIn = outputFolder + "\\" + NameFile.substr(0, NameFile.size() - 4) + ".bin";
 		dataOutAfter0 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_After0.txt";
@@ -150,4 +154,7 @@ void File::SetOutPutFileCanal(std::string NameFile) {
 }
 void File::setPath(std::string data) {
 	path = data;
+}
+void File::segmentclear() {
+	temp.clear();
 }

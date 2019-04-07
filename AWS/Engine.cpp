@@ -61,6 +61,7 @@ void Engine::run() {
 		while (manager.sizeProduction() > 0) {
 			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.size() << "\n";
 			file = manager.nextFile();
+			filePointer.segmentclear();
 			filePointer.setPath(nameFolder + "\\" + file);
 			filePointer.setNameFile(file);
 			filePointer.setOutputFolder(outputFolder);
@@ -75,7 +76,7 @@ void Engine::run() {
 		manager.onAlternative();
 		manager.setNameFolder(outputFolder);
 		manager.fileSearch();
-		iteratorLoadFile = manager.size();
+		iteratorLoadFile = manager.size(); 
 		filePointer.setNameFile(file);
 		filePointer.setOutputFolder(outputFolder);
 		filePointer.setOutPutFiles(outPutFiles);

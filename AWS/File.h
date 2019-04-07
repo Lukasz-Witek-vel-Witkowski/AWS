@@ -6,7 +6,7 @@ class File
 {
 public:
 	File();
-	void setNameFile(std::string name);
+	void setNameFile(std::string& name);
 	void setOutputFolder(std::string name);
 	void setOutPutFiles(std::string name);
 	void setPath(std::string path);
@@ -17,6 +17,7 @@ public:
 	void setIterator(int Canal);
 	int getCanal();
 	void clear();
+	void segmentclear();
 	~File();
 private:
 	_SegmentF temp;
