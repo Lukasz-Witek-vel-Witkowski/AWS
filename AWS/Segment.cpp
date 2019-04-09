@@ -1,5 +1,4 @@
 #include "Segment.h"
-
 void _SegmentF::config() {
 	clear();
 }
@@ -7,37 +6,6 @@ _SegmentF::_SegmentF() {
 	config();
 }
 _SegmentF::~_SegmentF() {}
-/*_SegmentF::_SegmentF(const _SegmentF& s) {
-	if (this != &s) *this = s;
-}
-_SegmentF& _SegmentF::operator=(const _SegmentF& s) {
-	if (this == &s) return *this;
-	if (*this == s) return *this;
-	config();
-	int i;
-	for (i = 0; i < maxIterator; i++) {
-		timer0[i] = s.timer0[i];
-		timer1[i] = s.timer1[i];
-		timer2[i] = s.timer2[i];
-		ch0After[i] = s.ch0After[i];
-		ch0Before[i] = s.ch0Before[i];
-		ch0digital[i] = s.ch0digital[i];
-		ch1After[i] = s.ch1After[i];
-		ch1Before[i] = s.ch1Before[i];
-		ch1digital[i] = s.ch1digital[i];
-		ch2After[i] = s.ch2After[i];
-		ch2Before[i] = s.ch2Before[i];
-		ch2digital[i] = s.ch2digital[i];
-		itrCh0 = s.itrCh0;
-		itrCh1 = s.itrCh1;
-		itrCh2 = s.itrCh2;
-		itrDigital = s.itrDigital;
-	}
-	return *this;
-}
-bool _SegmentF::operator==(const _SegmentF& s) {
-	return false; //do rozwiniecia
-}*/
 void _SegmentF::setTimer(int i, int iterator, long& value) {
 	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
 		switch (i) {
@@ -148,14 +116,12 @@ int& _SegmentF::getChDigital(int i, int iterator) {
 }
 void _SegmentF::loadData(std::istream& file) {
 	std::string temp;
-	std::string date;
-	std::string valueAfter;
-	std::string valueBefore;
 	std::getline(file, temp);
 	if (full) {
 		return;
 	}
 	if (temp == "") {
+		//std::cout <<"iterator: "<< iterator << "\n";
 		switch (program) {
 		case ch0:	program = Program::ch1; iterator = 0; return;
 		case ch1:	program = Program::ch2; iterator = 0; return;
@@ -164,42 +130,39 @@ void _SegmentF::loadData(std::istream& file) {
 		}
 	}
 	else {
-		std::string value, yong;
-		std::size_t ptr; 
+		std::string date;
+		std::string valueAfter;
+		std::string valueBefore;
+		std::size_t ptr;
+		date = temp;
+		cutValue(date, valueAfter, valueBefore, ptr);
 		switch (program) {
 		case ch0:
-			date = temp;
-			cutValue(date, valueAfter,valueBefore, ptr);
 			timer0[iterator] = atoi(date.c_str());
 			ch0After[iterator] = (float)atof(valueAfter.c_str());
 			ch0Before[iterator] = (float)atof(valueBefore.c_str());
 			itrCh0++;
-			iterator++; break;
+			break;
 		case ch1:
-			date = temp;
-			cutValue(date, valueAfter, valueBefore, ptr);
 			timer1[iterator] = atoi(date.c_str());
 			ch1After[iterator] = (float)atof(valueAfter.c_str());
 			ch1Before[iterator] = (float)atof(valueBefore.c_str());
 			itrCh1++;
-			iterator++; break;
+			break;
 		case ch2:
-			date = temp;
-			cutValue(date, valueAfter, valueBefore, ptr);
 			timer2[iterator] = atoi(date.c_str());
 			ch2After[iterator] = (float)atof(valueAfter.c_str());
 			ch2Before[iterator] = (float)atof(valueBefore.c_str());
 			itrCh2++;
-			iterator++; break;
+			break;
 		case digital:
-			date = temp;
-			cutValue(date, valueAfter, valueBefore, ptr);
 			ch0digital[iterator] = atoi(date.c_str());
 			ch1digital[iterator] = (int)atof(valueAfter.c_str());
 			ch2digital[iterator] = (int)atof(valueBefore.c_str());
 			itrDigital++;
-			iterator++; break;
+			break;
 		}
+		iterator++;
 	}
 }
 bool& _SegmentF::isFull() {
@@ -220,9 +183,6 @@ void _SegmentF::cutValue(std::string& data, std::string& valueAfter, std::string
 	valueBefore = data.substr(0, ptr);
 	valueAfter=data.replace(0, ptr+1, "");
 	data = temp;
-}
-void _SegmentF::setNameFile(std::string& name) {
-	nameFile = name;
 }
 void _SegmentF::clear() {
 	iterator = 0;

@@ -17,6 +17,7 @@ void Manager::setNameFolder(std::string name) {
 void Manager::fileSearch() {
 	std::string temp;
 	std::string temp_next;
+	std::ifstream file;
 	if (!active) {
 		nameFolder = "(cd && dir /b " + nameFolder + ") >> " + fileList;
 		active = true;
@@ -28,7 +29,6 @@ void Manager::fileSearch() {
 	system(nameFolder.c_str());
 	std::cout << nameFolder;
 	_sleep(1000);
-	std::ifstream file;
 	file.open(fileList);
 	if (file.good()) {
 		file >> path;

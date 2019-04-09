@@ -7,7 +7,6 @@ File::File()
 }
 void File::setNameFile(std::string& name) {
 	nameFile = name;
-	std::cout <<"nazwa pliku: "<< nameFile << "\n";
 }
 void File::setIterator(int iterator) {
 	iteratorSegments = iterator;
@@ -15,10 +14,10 @@ void File::setIterator(int iterator) {
 int File::getCanal() { return canal; }
 void File::loadFile() {
 	std::ifstream file(path.c_str());
-	std::cout <<"odczyt: "<< path << "\n";
 	int i = 1;
+	std::cout <<"odczyt: "<< path << "\n";
 	if (file.is_open()) {
-		while (!file.eof()) { //warunek petli!!!
+		while (!file.eof()) { 
 			file >> *this;
 		}
 		file.close();
@@ -28,9 +27,9 @@ void File::saveFile() {
 	std::ofstream file;
 	int iterator = 0;
 	std::string data = outputFolder + "\\" + nameFile.substr(0,nameFile.size()-4) + ".bin";
-	std::cout << data << "\n";
+//	std::cout << data << "\n";
 	file.open(data.c_str(), std::ios_base::binary);
-	std::cout << data << "\n";
+//	std::cout << data << "\n";
 	if (file.good()) {
 			file.write(reinterpret_cast <char *>(&temp), sizeof(_SegmentF)); //rzutowanie na zapis binarny
 			iteratorSegments++;
@@ -57,100 +56,90 @@ void File::setOutPutFiles(std::string name) {
 void File::SetOutPutFileCanal(std::string NameFile) {
 	std::ifstream in;
 	std::ofstream out;
-	std::string dataIn;
-	std::string dataOutAfter0;
-	std::string dataOutAfter1;
-	std::string dataOutAfter2;
-	std::string dataOutBefore0;
-	std::string dataOutBefore1;
-	std::string dataOutBefore2;
-	std::string dataOutdigital0;
-	std::string dataOutdigital1;
-	std::string dataOutdigital2;
+	std::string* tab = new std::string[11];
+	std::string name = NameFile.substr(0, NameFile.size() - 4);
+	int i;
 	int j;
+	char c = '0';
 	temp.clear();
-	std::cout << "przetwarzanie pliku :" << NameFile << "\n";
-		dataIn = outputFolder + "\\" + NameFile.substr(0, NameFile.size() - 4) + ".bin";
-		dataOutAfter0 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_After0.txt";
-		dataOutAfter1 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_After1.txt";
-		dataOutAfter2 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_After2.txt";
-		dataOutBefore0 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Before0.txt";
-		dataOutBefore1 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Before1.txt";
-		dataOutBefore2 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Before2.txt";
-		dataOutdigital0 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital0.txt";
-		dataOutdigital1 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital1.txt";
-		dataOutdigital2 = outPutFiles + "\\" + NameFile.substr(0, NameFile.size() - 4) + "_Digital2.txt";
-		in.open(dataIn.c_str() , std::ios_base::binary);
-		std::cout <<"plik do analizy: "<< dataIn << "\n";
-		if (in.good()) {
-			in.read(reinterpret_cast <char *>(&temp), sizeof(_SegmentF));
-			in.close(); //dal wielu blikow .bin!
-		}
-		temp;
-		out.open(dataOutAfter0.c_str());
+	tab[10] = "mkdir "+ outPutFiles + "\\" + name;
+	system(tab[10].c_str());
+	_sleep(500);
+	tab[10] = "mkdir " + outPutFiles + "\\" + name + "\\" + "AFTER";
+	system(tab[10].c_str());
+	_sleep(500);
+	tab[10] = "mkdir " + outPutFiles + "\\" + name + "\\" + "BEFORE";
+	system(tab[10].c_str());
+	_sleep(500);
+	tab[0] = outputFolder + "\\" + name + ".bin";
+	std::cout << "plik do analizy: " << tab[0] << "\n";
+	in.open(tab[0].c_str(), std::ios_base::binary);
+	if (in.good()) {
+		in.read(reinterpret_cast <char *>(&temp), sizeof(_SegmentF));
+		in.close();
+	for (i = 1; i < 9; i += 3) {
+		tab[i] = outPutFiles + "\\" + name +"\\" +"AFTER" +"\\"+name +"_After" + c +".txt";
+		tab[i+1] = outPutFiles + "\\" + name +"\\"+"BEFORE"+"\\"+name +"_Before" + c + ".txt";
+		tab[i+2] = outPutFiles + "\\" + name +"\\" +name+"_Digital"+ c +".txt";
+		c++;
+	}
+	for (i = 1; i < 10; i++) {
+		out.open(tab[i].c_str());
 		if (out.good()) {
-			for (j = 0; j < temp.itrCh0; j++) {
-				out << (long long)temp.getChAfter(0, j) <<" ";
-			}
-			out.close();
-		}
-		out.open(dataOutAfter1.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrCh1; j++) {
-				out << (long long)temp.getChAfter(1, j) << " ";
-			}
-			out.close();
-		}
-		out.open(dataOutAfter2.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrCh2; j++) {
-				out << (long long)temp.getChAfter(2, j) << " ";
-			}
-			out.close();
-		}
-		out.open(dataOutBefore0.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrCh0; j++) {
-				out << (long long)temp.getChBefore(0, j) << " ";
-			}
-			out.close();
-		}
-		out.open(dataOutBefore1.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrCh1; j++) {
-				out << (long long)temp.getChBefore(1, j) << " ";
-			}
-			out.close();
-		}
-		out.open(dataOutBefore2.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrCh2; j++) {
-				out << (long long)temp.getChBefore(2, j) << " ";
-			}
-			out.close();
-		}
-		out.open(dataOutdigital0.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrDigital; j++) {
-				out << (long long)temp.getChDigital(0, j) << " ";
-			}
-			out.close();
-		}
-		out.open(dataOutdigital1.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrDigital; j++) {
-				out << (long long)temp.getChDigital(1, j) << " ";
-			}
-			out.close();
-		}
-		out.open(dataOutdigital2.c_str());
-		if (out.good()) {
-			for (j = 0; j < temp.itrDigital; j++) {
-				out << (long long)temp.getChDigital(2, j) << " ";
-			}
-			out.close();
-		}
+			switch (i) {
+			case 1: {
+				for (j = 0; j < temp.itrCh0; j++) {
+					out << (long long)temp.getChAfter(0, j) << " ";
+				}
+			} break;
+			case 2: {
+				for (j = 0; j < temp.itrCh0; j++) {
+					out << (long long)temp.getChBefore(0, j) << " ";
+				}
+			} break;
+			case 3: {
+				for (j = 0; j < temp.itrDigital; j++) {
+					out << (long long)temp.getChDigital(0, j) << " ";
+				}
+			} break;
+			case 4: {
+				for (j = 0; j < temp.itrCh1; j++) {
+					out << (long long)temp.getChAfter(1, j) << " ";
+				}
+			} break;
+			case 5: {
+				for (j = 0; j < temp.itrCh1; j++) {
+					out << (long long)temp.getChBefore(1, j) << " ";
+				}
+			}break;
+			case 6: {
+				for (j = 0; j < temp.itrDigital; j++) {
+					out << (long long)temp.getChDigital(1, j) << " ";
+				}
+			} break;
+			case 7: {
+				for (j = 0; j < temp.itrCh2; j++) {
+					out << (long long)temp.getChAfter(2, j) << " ";
+				}
+			} break;
+			case 8: {
+				for (j = 0; j < temp.itrCh2; j++) {
+					out << (long long)temp.getChBefore(2, j) << " ";
+				}
+			} break;
+			case 9: {
+				for (j = 0; j < temp.itrDigital; j++) {
+					out << (long long)temp.getChDigital(2, j) << " ";
+				}
+			} break;
 
+			}
+			out.close();
+		}
+	}
+	delete[] tab;
+	}
+	
 }
 void File::setPath(std::string data) {
 	path = data;

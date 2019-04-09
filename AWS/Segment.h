@@ -1,61 +1,62 @@
+//**********************************************************************************************************//
+// Data utworzenia: 16-03-2019									  		Autor: Lukasz Witek vel Witkowski	//
+// Opis: "Struktura _SegmentF odpowiedzialna za bezposredne przechowywwanie danych z pliku"					//
+//**********************************************************************************************************//
 #pragma once
 #ifndef SEGMENT_HPP
 #define SEGMENT_HPP
 #include <fstream>
 #include <string>
 #include <iostream>
-enum Program {
-	ch0,
-	ch1,
-	ch2,
-	digital
+#include <stdlib.h>
+#include <stdio.h>
+enum Program { //zmienna typu enumerowanego odpowiedzialna za zdefiniowanie trybu pracy agorytmu wyciagajacego dane ze struktury
+	ch0, //kanal 0
+	ch1, //kanal 1
+	ch2, //kanal 2
+	digital //digital :)
 };
-constexpr auto maxIterator = 1024;
+constexpr auto maxIterator = 1024; //wartosc okreslajaca maksymalne wielkosci dancyh w pojedynczym kanale
 struct _SegmentF
 {
 public:
-	int itrCh0;
-	int itrCh1;
-	int itrCh2;
-	int itrDigital;
+	int itrCh0; //zmienna okreslajaca rozmiar kanalu 0
+	int itrCh1; //zmienna okreslajaca rozmiar kanalu 1
+	int itrCh2; //zmienna okreslajaca rozmiar kanalu 2
+	int itrDigital; //zmienna okreslajaca rozmiar kanalu digital
 private:
-	long timer0[maxIterator];
-	long timer1[maxIterator];
-	long timer2[maxIterator];
-	float ch0After[maxIterator];
-	float ch0Before[maxIterator];
-	float ch1After[maxIterator];
-	float ch1Before[maxIterator];
-	float ch2After[maxIterator];
-	float ch2Before[maxIterator];
-	int ch0digital[maxIterator];
-	int ch1digital[maxIterator];
-	int ch2digital[maxIterator];
-	Program program;
-	bool full;
-	std::string nameFile;
-	int iterator;
-	void config();
+	long timer0[maxIterator]; //tablica przechowujaca dane o czasie dla kanalu 0
+	long timer1[maxIterator]; //tablica przechowujaca dane o czasie dla kanalu 1
+	long timer2[maxIterator]; //tablica przechowujaca dane o czasie dla kanalu 2
+	float ch0After[maxIterator]; //tablica przechowujaca dane po buforze dla kanalu 0
+	float ch0Before[maxIterator]; //tablica przechowujaca dane przed buforze dla kanalu 0
+	float ch1After[maxIterator]; //tablica przechowujaca dane po buforze dla kanalu 1
+	float ch1Before[maxIterator]; //tablica przechowujaca dane przed buforze dla kanalu 1
+	float ch2After[maxIterator]; //tablica przechowujaca dane po buforze dla kanalu 2
+	float ch2Before[maxIterator]; //tablica przechowujaca dane przed buforze dla kanalu 2
+	int ch0digital[maxIterator]; //tablica przechowujaca dane digital dla kanalu 0
+	int ch1digital[maxIterator]; //tablica przechowujaca dane digital dla kanalu 1
+	int ch2digital[maxIterator]; //tablica przechowujaca dane digital dla kanalu 2
+	Program program; //zmienna programu
+	bool full; //zmienna okreslajaca czy struktura zostala calkowicie zapelniona
+	int iterator; //zmienna pelniaca fukcje iteroujaca 
+	void config(); //metoda konfugurujaca defoltowe ustawienia struktury
 public:
-	_SegmentF();
-	/*_SegmentF(const _SegmentF& s);
-	_SegmentF& operator=(const _SegmentF& s);
-	bool operator==(const _SegmentF& s);*/
-	void loadData(std::istream& file);
-	void clear();
+	_SegmentF(); //konstruktor bez parametrowy
+	void loadData(std::istream& file); //metoda wczytujaca dane z pliku wejsciowego ".txt"
+	void clear(); //metoda czyszczaca zawartosc struktury
 	void setTimer(int i, int iterator,long& value);
 	void setChAfter(int i, int iterator,float& value);
 	void setChBefore(int i,int iterator, float& value);
 	void setChDigital(int i, int iterator,int& value);
-	void setNameFile(std::string& name);
 	long& getTimer(int i, int iterator);
-	bool& isFull();
+	bool& isFull(); //metoda zwracajaca referencje zmiennej full 
 	float& getChAfter(int i, int iterator);
 	float& getChBefore(int i, int iterator);
 	int& getChDigital(int i, int iterator);
-	void cutValue(std::string& data, std::string& valueAfter, std::string& valueBefore, std::size_t& ptr);
-	void reset();
+	void cutValue(std::string& data, std::string& valueAfter, std::string& valueBefore, std::size_t& ptr); //metoda wyodrebnajaca odczytana linie z pliku na poszczegolne wartosci typu std::string
+	void reset(); //metoda przywracajaca strukture do ustwaien poczatkowych
 	int& getIterator();
-	~_SegmentF();
+	~_SegmentF(); //destruktor
 };
 #endif // !SEGMENT_HPP

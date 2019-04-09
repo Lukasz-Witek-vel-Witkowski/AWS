@@ -4,9 +4,7 @@ Engine::Engine()
 {
 	canal = false;
 	loadFileConfig(); //wczytywanie pliku konfiguracyjnego
-	manager.setNameFolder(nameFolder);
-	manager.fileSearch();
-	program = '1';
+	//program = '1';
 	iteratorLoadFile = 0;
 }
 void Engine::loadFileConfig() {
@@ -51,26 +49,29 @@ void Engine::loadFileConfig() {
 	}
 }
 void Engine::run() {
-	std::cout << "\n"; 
 	std::string file;
+	std::cout << "\n"; 
 	file = "mkdir" + outPutFiles;
 	std::cout << file << "\n";
 	system(file.c_str());
 	_sleep(1000);
+	filePointer.setOutputFolder(outputFolder);
+	filePointer.setOutPutFiles(outPutFiles);
 	if (!canal) {
+		manager.offAlternative();
+		manager.setNameFolder(nameFolder);
+		manager.fileSearch();
 		while (manager.sizeProduction() > 0) {
 			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.size() << "\n";
 			file = manager.nextFile();
 			filePointer.segmentclear();
 			filePointer.setPath(nameFolder + "\\" + file);
 			filePointer.setNameFile(file);
-			filePointer.setOutputFolder(outputFolder);
-			filePointer.setOutPutFiles(outPutFiles);
 			filePointer.loadFile();
 			filePointer.saveFile();
 			iteratorLoadFile++;
 		}
-		saveDataChanel();
+		//saveDataChanel();
 	}
 	else {
 		manager.onAlternative();
@@ -78,18 +79,17 @@ void Engine::run() {
 		manager.fileSearch();
 		iteratorLoadFile = manager.size(); 
 		filePointer.setNameFile(file);
-		filePointer.setOutputFolder(outputFolder);
-		filePointer.setOutPutFiles(outPutFiles);
-		saveDataChanel();
+	//	saveDataChanel();
 	}
+	saveDataChanel();
 }
 Engine::~Engine(){}
 void Engine::saveDataChanel() {
+	int iter = 0;
 	manager.resetIterator();
-	int iter=0;
+	filePointer.setIterator(iteratorLoadFile);
 	//filePointer.setOutputFolder(nameFolder);
 	while (manager.sizeProduction()) {
-		filePointer.setIterator(iteratorLoadFile);
 		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size() << "\n";
 		filePointer.SetOutPutFileCanal(manager.nextFile());
 	}
