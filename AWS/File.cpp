@@ -17,7 +17,7 @@ void File::loadFile() {
 	int i = 1;
 	std::cout <<"odczyt: "<< path << "\n";
 	if (file.is_open()) {
-		while (!file.eof()) { 
+		while (!file.eof()&&!getTemp().isEof()) { 
 			file >> *this;
 		}
 		file.close();

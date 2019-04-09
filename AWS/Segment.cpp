@@ -164,6 +164,9 @@ void _SegmentF::loadData(std::istream& file) {
 		}
 		iterator++;
 	}
+	if (file.eof) {
+		eof = true; return;
+	}
 }
 bool& _SegmentF::isFull() {
 	return full;
@@ -191,6 +194,7 @@ void _SegmentF::clear() {
 	itrCh2 = 0;
 	itrDigital = 0;
 	full = false;
+	eof = false;
 	program = Program::ch0;
 	for (int i = 0; i < maxIterator; i++) {
 		ch0After[i] = 0.0;
@@ -206,4 +210,7 @@ void _SegmentF::clear() {
 		timer1[i] = 0;
 		timer2[i] = 0;
 	}
+}
+bool& _SegmentF::isEof() {
+	return eof;
 }

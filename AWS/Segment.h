@@ -16,7 +16,7 @@ enum Program { //zmienna typu enumerowanego odpowiedzialna za zdefiniowanie tryb
 	ch2, //kanal 2
 	digital //digital :)
 };
-constexpr auto maxIterator = 1024; //wartosc okreslajaca maksymalne wielkosci dancyh w pojedynczym kanale
+constexpr auto maxIterator = 10240; //wartosc okreslajaca maksymalne wielkosci dancyh w pojedynczym kanale
 struct _SegmentF
 {
 public:
@@ -39,6 +39,7 @@ private:
 	int ch2digital[maxIterator]; //tablica przechowujaca dane digital dla kanalu 2
 	Program program; //zmienna programu
 	bool full; //zmienna okreslajaca czy struktura zostala calkowicie zapelniona
+	bool eof; //zmienna konca pliku
 	int iterator; //zmienna pelniaca fukcje iteroujaca 
 	void config(); //metoda konfugurujaca defoltowe ustawienia struktury
 public:
@@ -54,6 +55,7 @@ public:
 	float& getChAfter(int i, int iterator);
 	float& getChBefore(int i, int iterator);
 	int& getChDigital(int i, int iterator);
+	bool& isEof();
 	void cutValue(std::string& data, std::string& valueAfter, std::string& valueBefore, std::size_t& ptr); //metoda wyodrebnajaca odczytana linie z pliku na poszczegolne wartosci typu std::string
 	void reset(); //metoda przywracajaca strukture do ustwaien poczatkowych
 	int& getIterator();
