@@ -51,16 +51,13 @@ int& _SegmentF::getChDigital(int i, int iterator) {
 void _SegmentF::loadData(std::istream& file) {
 	std::string temp;
 	std::getline(file, temp);
-	if (full) {
-		return;
-	}
 	if (temp == "") {
 		//std::cout <<"iterator: "<< iterator << "\n";
 		switch (program) {
 		case ch0:	program = Program::ch1; iterator = 0; return;
 		case ch1:	program = Program::ch2; iterator = 0; return;
 		case ch2:	program = Program::digital; iterator = 0; return;
-		case digital: full = true;
+		case digital: program = Program::ch0; iterator = 0; full = true; return;
 		}
 	}
 	else {

@@ -11,24 +11,78 @@ Manager::Manager(std::string data) {
 	nameFolder = data;
 	active = false;
 }
+std::string& Manager::nextFile() {
+	if(iterator<vFile.size())	return vFile[iterator++];
+	return data;
+}
+void Manager::resetIterator() {
+	iterator = 0;
+	iteratorFocus = 0;
+}
+int Manager::sizeProduction() {
+	return (int)((int)vFile.size()-(int)iterator);
+}
 void Manager::setNameFolder(std::string name) {
 	nameFolder = name;
 	active = false;
 }
-void Manager::fileSearch() {
+int Manager::sizeFocus() {
+	return (int)vFileFocus.size();
+}
+int Manager::size() {
+	return (int)vFile.size();
+}
+void Manager::countSegments() {
+	std::cout << "Loading data...\n";
+	std::ifstream in;
+	std::ofstream out;
+	std::string temp;
+	iterator = 0;
+	int seg = 0;
+	int control = 4;
+	out.open(fileFocus);
+	if (out.good()) {
+		for (int i = 0; i < (int)vFile.size(); i++) {
+			in.open(nameFolder + "\\" + vFile[iterator].c_str());
+			if (in.good()) {
+				while (!in.eof()) {
+					std::getline(in, temp);
+					if (temp == "") {
+						control--;
+						if (control == 0)
+						{
+							seg++;
+							control = 4;
+						}
+					}
+				}
+				in.close();
+			}
+			out << vFile[iterator] << "\t" << seg << "\n";
+			iterator++;
+			seg = 0;
+			control = 4;
+		}
+		out.close();
+	}
+	loadFileIn();
+}
+int Manager::sizeProductionFocus() {
+	return (int)((int)vFileFocus.size() - (int)iteratorFocus);
+}
+void Manager::fileSearch(bool what) {
 	std::string temp;
 	std::string temp_next;
 	std::ifstream file;
 	if (!active) {
-		nameFolder = "(cd && dir /b " + nameFolder + ") >> " + fileList;
+		temp_next = "(cd && dir /b " + nameFolder + ") >> " + fileList;
 		active = true;
 	}
 	temp = "del ";
 	temp += fileList;
 	system(temp.c_str());
 	_sleep(100);
-	system(nameFolder.c_str());
-	std::cout << nameFolder;
+	system(temp_next.c_str());
 	_sleep(1000);
 	file.open(fileList);
 	if (file.good()) {
@@ -37,7 +91,7 @@ void Manager::fileSearch() {
 			temp_next = temp;
 			std::getline(file, temp);
 			if (temp.size() > 5) {
-				if (temp[temp.size()-4]=='.'&&temp[temp.size()-3]=='t'&&temp[temp.size()-2]=='x'&&temp[temp.size()-1]=='t'&&!alterbative) {
+				if (temp[temp.size() - 4] == '.'&&temp[temp.size() - 3] == 't'&&temp[temp.size() - 2] == 'x'&&temp[temp.size() - 1] == 't' && !alterbative) {
 					vFile.push_back(temp);
 				}
 				else {
@@ -49,34 +103,21 @@ void Manager::fileSearch() {
 		} while (temp_next != temp);
 		file.close();
 	}
+	if (what)
+		countSegments();
 }
-std::string& Manager::nextFile() {
-	if(iterator<vFile.size())	return vFile[iterator++];
-	return data;
-}
-Focus& Manager::nextFocus() {
-	if (iteratorFocus < vFileFocus.size())	return vFileFocus[iteratorFocus++];
-	return f_temp;;
-}
-void Manager::resetIterator() {
-	iterator = 0;
-	iteratorFocus = 0;
-}
-int Manager::sizeProduction() {
-	return (int)((int)vFile.size()-(int)iterator);
-}
-int Manager::size() {
-	return (int)vFile.size();
-}
-Manager::~Manager() {}
 void Manager::onAlternative() {
 	alterbative = true;
 }
 void Manager::offAlternative() {
 	alterbative = false;
 }
+Focus& Manager::nextFocus() {
+	if (iteratorFocus < vFileFocus.size())	return vFileFocus[iteratorFocus++];
+	return f_temp;;
+}
 void Manager::loadFileIn() {
-	std::ifstream in(nameFocus.c_str());
+	std::ifstream in(fileFocus);
 	std::string temp;
 	std::string name;
 	Focus f;
@@ -100,12 +141,10 @@ void Manager::cutValueFocus(std::string& name, int& size, std::string& line) {
 	ptr = line.find('\t');
 	size = atoi(line.substr(0, ptr).c_str());
 }
-void Manager::setNameFocus(std::string name) {
-	nameFocus = name;
+void Manager::setVector(std::vector<std::string>& v) {
+	vFile.clear();
+	for (auto& x : v) {
+		vFile.push_back(x);
+	}
 }
-int Manager::sizeFocus() {
-	return (int)vFileFocus.size();
-}
-int Manager::sizeProductionFocus() {
-	return (int)((int)vFileFocus.size() - (int)iteratorFocus);
-}
+Manager::~Manager() {}

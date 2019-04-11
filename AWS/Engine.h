@@ -8,9 +8,8 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 constexpr auto config = "file.cnf";
-#include "File.h"
 #include "Manager.h"
-#include "FileFocus.h"
+#include "File.h"
 class Engine
 {
 public:
@@ -26,8 +25,8 @@ private:
 				//do osobnych plikow ".txt") (true - z plikow ".bin" wyodrebnia poszczegolen dane ze struktury do 
 				//osbnych plikow ".txt")
 	short iteratorLoadFile; //zmeinna pomocnicza do iterowania poszczegolnych plikow podaczas realizacji glownego algorytmu 
-	File filePointer; // zmienna typu File odpowiadajaca za wykonywanie operacji na plikach
-	FileFocus focus;
+	//File filePointer; // zmienna typu File odpowiadajaca za wykonywanie operacji na plikach
+	File focus;
 	std::string nameFolder; //zmienna przechowujaca dane o folderze roboczym
 	std::string outputFolder; //zmienna przechowujaca dane o folderze output
 	std::string outPutFiles; //zmienna przechowujaca dane o folderze result

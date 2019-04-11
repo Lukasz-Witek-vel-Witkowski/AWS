@@ -9,7 +9,7 @@ void CountSegments();
 
 int main() 
 {
-	CountSegments();
+	//CountSegments();
 
 
 	Engine e;

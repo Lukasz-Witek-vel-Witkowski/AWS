@@ -1,7 +1,4 @@
 #include "Focus.h"
-
-
-
 Focus::Focus()
 {
 }

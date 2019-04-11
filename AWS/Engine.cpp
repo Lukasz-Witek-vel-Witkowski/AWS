@@ -4,7 +4,6 @@ Engine::Engine()
 {
 	canal = false;
 	loadFileConfig(); //wczytywanie pliku konfiguracyjnego
-	//program = '1';
 	iteratorLoadFile = 0;
 }
 void Engine::loadFileConfig() {
@@ -52,56 +51,40 @@ void Engine::run() {
 	std::string file;
 	std::cout << "\n"; 
 	file = "mkdir" + outPutFiles;
-	std::cout << file << "\n";
 	system(file.c_str());
 	_sleep(1000);
-	filePointer.setOutputFolder(outputFolder);
-	filePointer.setOutPutFiles(outPutFiles);
 	focus.setOutPutFiles(outPutFiles);
 	focus.setOutPutFolder(outputFolder);
+	focus.setPath(nameFolder);
 	if (!canal) {
 		manager.offAlternative();
+		iteratorLoadFile = 0;
 		manager.setNameFolder(nameFolder);
-		manager.fileSearch();
-		while (manager.sizeProduction() > 0) {
-			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.size() << "\n";
-			file = manager.nextFile();
-			filePointer.segmentclear();
-			filePointer.setPath(nameFolder + "\\" + file);
-			filePointer.setNameFile(file);
-			filePointer.loadFile();
-			filePointer.saveFile();
+		manager.fileSearch(true);
+		while (manager.sizeProductionFocus() > 0) {
+			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.sizeFocus() << "\n";
+			focus.setFocus(manager.nextFocus());
 			iteratorLoadFile++;
+			focus.loadFile();
+			focus.saveFile();
+			manager.setVector(focus.getVector());
 		}
-		//saveDataChanel();
 	}
 	else {
 		manager.onAlternative();
 		manager.setNameFolder(outputFolder);
-		manager.fileSearch();
+		manager.fileSearch(false);
 		iteratorLoadFile = manager.size(); 
-		filePointer.setNameFile(file);
-	//	saveDataChanel();
 	}
-	iteratorLoadFile = 0;
-	manager.setNameFocus("plik.txt");
-	manager.loadFileIn();
-	while (manager.sizeProductionFocus() > 0) {
-		std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.sizeFocus() << "\n";
-		focus.setFocus(manager.nextFocus());
-		iteratorLoadFile++;
-		focus.saveFile();
-	}
+
 	saveDataChanel();
 }
 Engine::~Engine(){}
 void Engine::saveDataChanel() {
 	int iter = 0;
 	manager.resetIterator();
-	filePointer.setIterator(iteratorLoadFile);
-	//filePointer.setOutputFolder(nameFolder);
 	while (manager.sizeProduction()) {
 		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size() << "\n";
-		filePointer.SetOutPutFileCanal(manager.nextFile());
+		focus.SetOutPutFileCanal(manager.nextFile());
 	}
 }
