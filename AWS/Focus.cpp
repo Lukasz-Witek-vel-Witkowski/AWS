@@ -18,7 +18,7 @@ void Focus::setSize(int& value) {
 	segment = value;
 }
 Focus& Focus::operator=(const Focus& f) {
-	if (this == &f) return *this;
+	if (this == &f) return *this; 
 	if (*this == f) return *this;
 	nameFile = f.nameFile;
 	segment = f.segment;
