@@ -46,16 +46,11 @@ public:
 	_SegmentF(); //konstruktor bez parametrowy
 	void loadData(std::istream& file); //metoda wczytujaca dane z pliku wejsciowego ".txt"
 	void clear(); //metoda czyszczaca zawartosc struktury
-	void setTimer(int i, int iterator,long& value);
-	void setChAfter(int i, int iterator,float& value);
-	void setChBefore(int i,int iterator, float& value);
-	void setChDigital(int i, int iterator,int& value);
-	long& getTimer(int i, int iterator);
 	bool& isFull(); //metoda zwracajaca referencje zmiennej full 
 	float& getChAfter(int i, int iterator);
 	float& getChBefore(int i, int iterator);
 	int& getChDigital(int i, int iterator);
-	bool& isEof();
+	//bool& isEof();
 	void cutValue(std::string& data, std::string& valueAfter, std::string& valueBefore, std::size_t& ptr); //metoda wyodrebnajaca odczytana linie z pliku na poszczegolne wartosci typu std::string
 	void reset(); //metoda przywracajaca strukture do ustwaien poczatkowych
 	int& getIterator();

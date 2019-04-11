@@ -6,72 +6,6 @@ _SegmentF::_SegmentF() {
 	config();
 }
 _SegmentF::~_SegmentF() {}
-void _SegmentF::setTimer(int i, int iterator, long& value) {
-	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
-		switch (i) {
-		case 0:
-			timer0[iterator] = value; break;
-		case 1:
-			timer1[iterator] = value; break;
-		case 2:
-			timer2[iterator] = value; break;
-		default:					  break;
-		}
-	}
-}
-void _SegmentF::setChAfter(int i,int iterator, float& value) {
-	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
-		switch (i) {
-		case 0:
-			ch0After[iterator] = value; break;
-		case 1:
-			ch1After[iterator] = value;	break;
-		case 2:
-			ch2After[iterator] = value;	break;
-		default:						break;
-		}
-	}
-}
-void _SegmentF::setChBefore(int i, int iterator ,float& value) {
-	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
-		switch (i) {
-		case 0:
-			ch0Before[iterator] = value; break;
-		case 1:
-			ch1Before[iterator] = value; break;
-		case 2:
-			ch2Before[iterator] = value; break;
-		default:						 break;
-		}
-	}
-}
-void _SegmentF::setChDigital(int i, int iterator,int& value) {
-	if (iterator >= 0 && iterator < maxIterator&& &value != nullptr) {
-		switch (i) {
-		case 0:
-			ch0digital[iterator] = value; break;
-		case 1:
-			ch1digital[iterator] = value; break;
-		case 2:
-			ch2digital[iterator] = value; break;
-		default:						  break;
-		}
-	}
-}
-long& _SegmentF::getTimer(int i, int iterator) {
-	if (iterator >= 0 && iterator < maxIterator) {
-		switch (i) {
-		case 0:
-			return timer0[iterator];
-		case 1:
-			return timer1[iterator];
-		case 2:
-			return timer2[iterator];
-		default:							break;
-		}
-	}
-	return timer0[maxIterator-1];
-}
 float& _SegmentF::getChAfter(int i, int iterator) {
 	if (iterator >= 0 && iterator < maxIterator) {
 		switch (i) {
@@ -164,9 +98,6 @@ void _SegmentF::loadData(std::istream& file) {
 		}
 		iterator++;
 	}
-	if (file.eof) {
-		eof = true; return;
-	}
 }
 bool& _SegmentF::isFull() {
 	return full;
@@ -211,6 +142,7 @@ void _SegmentF::clear() {
 		timer2[i] = 0;
 	}
 }
+/*
 bool& _SegmentF::isEof() {
 	return eof;
-}
+}*/

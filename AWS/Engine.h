@@ -10,6 +10,7 @@
 constexpr auto config = "file.cnf";
 #include "File.h"
 #include "Manager.h"
+#include "FileFocus.h"
 class Engine
 {
 public:
@@ -26,6 +27,7 @@ private:
 				//osbnych plikow ".txt")
 	short iteratorLoadFile; //zmeinna pomocnicza do iterowania poszczegolnych plikow podaczas realizacji glownego algorytmu 
 	File filePointer; // zmienna typu File odpowiadajaca za wykonywanie operacji na plikach
+	FileFocus focus;
 	std::string nameFolder; //zmienna przechowujaca dane o folderze roboczym
 	std::string outputFolder; //zmienna przechowujaca dane o folderze output
 	std::string outPutFiles; //zmienna przechowujaca dane o folderze result

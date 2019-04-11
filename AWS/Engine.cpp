@@ -57,6 +57,8 @@ void Engine::run() {
 	_sleep(1000);
 	filePointer.setOutputFolder(outputFolder);
 	filePointer.setOutPutFiles(outPutFiles);
+	focus.setOutPutFiles(outPutFiles);
+	focus.setOutPutFolder(outputFolder);
 	if (!canal) {
 		manager.offAlternative();
 		manager.setNameFolder(nameFolder);
@@ -80,6 +82,15 @@ void Engine::run() {
 		iteratorLoadFile = manager.size(); 
 		filePointer.setNameFile(file);
 	//	saveDataChanel();
+	}
+	iteratorLoadFile = 0;
+	manager.setNameFocus("plik.txt");
+	manager.loadFileIn();
+	while (manager.sizeProductionFocus() > 0) {
+		std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.sizeFocus() << "\n";
+		focus.setFocus(manager.nextFocus());
+		iteratorLoadFile++;
+		focus.saveFile();
 	}
 	saveDataChanel();
 }

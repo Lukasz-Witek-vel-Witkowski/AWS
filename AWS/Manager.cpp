@@ -2,6 +2,7 @@
 
 Manager::Manager() {
 	iterator = 0;
+	iteratorFocus = 0;
 	active = false;
 	alterbative = false;
 	data = "";
@@ -53,8 +54,13 @@ std::string& Manager::nextFile() {
 	if(iterator<vFile.size())	return vFile[iterator++];
 	return data;
 }
+Focus& Manager::nextFocus() {
+	if (iteratorFocus < vFileFocus.size())	return vFileFocus[iteratorFocus++];
+	return f_temp;;
+}
 void Manager::resetIterator() {
 	iterator = 0;
+	iteratorFocus = 0;
 }
 int Manager::sizeProduction() {
 	return (int)((int)vFile.size()-(int)iterator);
@@ -68,4 +74,38 @@ void Manager::onAlternative() {
 }
 void Manager::offAlternative() {
 	alterbative = false;
+}
+void Manager::loadFileIn() {
+	std::ifstream in(nameFocus.c_str());
+	std::string temp;
+	std::string name;
+	Focus f;
+	int size;
+	if (in.good()) {
+		while (!in.eof()) {
+			std::getline(in, temp);
+			cutValueFocus(name, size, temp);
+			f.setName(name);
+			f.setSize(size);
+			vFileFocus.push_back(f);
+		}
+	}
+
+}
+void Manager::cutValueFocus(std::string& name, int& size, std::string& line) {
+	size_t ptr;
+	ptr = line.find('\t');
+	name = line.substr(0, ptr);
+	line.replace(0, ptr + 1, "");
+	ptr = line.find('\t');
+	size = atoi(line.substr(0, ptr).c_str());
+}
+void Manager::setNameFocus(std::string name) {
+	nameFocus = name;
+}
+int Manager::sizeFocus() {
+	return (int)vFileFocus.size();
+}
+int Manager::sizeProductionFocus() {
+	return (int)((int)vFileFocus.size() - (int)iteratorFocus);
 }
