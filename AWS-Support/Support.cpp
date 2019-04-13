@@ -56,9 +56,9 @@ std::cout << "zapisywanie wynikow!\n";
 	if (outgood.good()&&outbad.good()) {
 		for (auto& x : v) {
 			if (x.status())
-			outgood << x << "\n";
+			outgood << x;
 			else
-			outbad << x << "\n";
+			outbad << x;
 		}
 	}
 }

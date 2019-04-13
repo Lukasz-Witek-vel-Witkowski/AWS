@@ -38,6 +38,6 @@ Element::~Element()
 {
 }
 std::ostream& operator<<(std::ostream& is,const Element& e) {
-	is << e.name << "\n";
+	is << e.name.substr(0,e.name.size()-13) << "\n";
 	return is;
 }
