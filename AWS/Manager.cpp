@@ -1,8 +1,8 @@
 #include "Manager.h"
 
 Manager::Manager() {
-	iterator = 0;
-	iteratorFocus = 0;
+	iterator = -1;
+	iteratorFocus = -1;
 	active = false;
 	alterbative = false;
 	data = "";
@@ -12,15 +12,16 @@ Manager::Manager(std::string data) {
 	active = false;
 }
 std::string& Manager::nextFile() {
-	if(iterator<vFile.size())	return vFile[iterator++];
+	if (iterator < 0) iterator = (int)vFile.size()-1;
+	if(iterator>0)	return vFile[--iterator];
 	return data;
 }
 void Manager::resetIterator() {
-	iterator = 0;
-	iteratorFocus = 0;
+	iterator = -1;
+	iteratorFocus = -1;
 }
 int Manager::sizeProduction() {
-	return (int)((int)vFile.size()-(int)iterator);
+	return (int)((int)vFile.size()*(int)iterator);
 }
 void Manager::setNameFolder(std::string name) {
 	nameFolder = name;
@@ -68,7 +69,7 @@ void Manager::countSegments() {
 	loadFileIn();
 }
 int Manager::sizeProductionFocus() {
-	return (int)((int)vFileFocus.size() - (int)iteratorFocus);
+	return (int)((int)vFileFocus.size() * (int)iteratorFocus);
 }
 void Manager::fileSearch(bool what) {
 	std::string temp;
@@ -113,8 +114,9 @@ void Manager::offAlternative() {
 	alterbative = false;
 }
 Focus& Manager::nextFocus() {
-	if (iteratorFocus < vFileFocus.size())	return vFileFocus[iteratorFocus++];
-	return f_temp;;
+	if (iteratorFocus < 0) iteratorFocus = (int)vFileFocus.size()-1;
+	if (iteratorFocus > 0)	return vFileFocus[--iteratorFocus];
+	return f_temp;
 }
 void Manager::loadFileIn() {
 	std::ifstream in(fileFocus);

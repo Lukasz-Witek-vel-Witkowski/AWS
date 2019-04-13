@@ -41,8 +41,8 @@ private:
 	std::string path; //zmienna przechowujaca dane o scieszce
 	bool active; //zmienna sterujaca praca niekturych metod
 	bool alterbative; //zmienna sterujaca praca niekturych metod
-	unsigned int iterator; //zmienna spelniajca role iterowania zbioru plikow
-	unsigned int iteratorFocus; //zmienna spelniajca role iterowania zbioru focusow
+	int iterator; //zmienna spelniajca role iterowania zbioru plikow
+	int iteratorFocus; //zmienna spelniajca role iterowania zbioru focusow
 	void cutValueFocus(std::string& name, int& size, std::string& line);
 	Focus f_temp;
 };

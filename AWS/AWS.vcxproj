@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="Focus.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Segment.cpp" />
@@ -124,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Engine.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="Focus.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Segment.h" />

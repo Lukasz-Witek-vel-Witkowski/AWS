@@ -61,8 +61,8 @@ void Engine::run() {
 		iteratorLoadFile = 0;
 		manager.setNameFolder(nameFolder);
 		manager.fileSearch(true);
-		while (manager.sizeProductionFocus() > 0) {
-			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.sizeFocus() << "\n";
+		while (manager.sizeProductionFocus() != 0) {
+			std::cout << "Przetwarzanie " << iteratorLoadFile + 1 << " z " << manager.sizeFocus()-1 << "\n";
 			focus.setFocus(manager.nextFocus());
 			iteratorLoadFile++;
 			focus.loadFile();
@@ -83,8 +83,8 @@ Engine::~Engine(){}
 void Engine::saveDataChanel() {
 	int iter = 0;
 	manager.resetIterator();
-	while (manager.sizeProduction()) {
-		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size() << "\n";
+	while (manager.sizeProduction()!=0) {
+		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size()-1 << "\n";
 		focus.SetOutPutFileCanal(manager.nextFile());
 	}
 }
