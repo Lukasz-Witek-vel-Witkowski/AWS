@@ -4,6 +4,7 @@
 
 Support::Support(std::string name) {
 	nameFile = name;
+	loadFileConfig();
 }
 void Support::loadData() {
 	std::cout << "Wczytywanie pliku " << nameFile << "\n";
@@ -30,6 +31,27 @@ void Support::loadData() {
 			}
 		}
 		in.close();
+	}
+}
+bool& Support::getAction() {
+	return action;
+}
+void Support::fileDelete() {
+	std::vector<std::string> data;
+	std::ifstream in("goodfile.txt");
+	std::string temp;
+	if (in.good()) {
+		while (!in.eof()) {
+			std::getline(in, temp);
+			data.push_back(temp);
+		}
+		in.close();
+	}
+	for (auto& x : data) {
+		if (x == "") continue;
+		temp = "del ..\\file\\" + x+".bin";
+		system(temp.c_str());
+		std::cout << temp<<"\n";
 	}
 }
 void Support::run() {
@@ -75,4 +97,34 @@ void Support::cutValueFocus(std::string& name, int& size, std::string& line) {
 }
 Support::~Support()
 {
+}
+void Support::loadFileConfig() {
+	std::string temp;
+	std::ifstream file;
+	file.open(config);
+	if (file.good()) {
+		while (!file.eof()) {
+			std::getline(file, temp);
+			if (temp.size() > 0) {
+				if (temp[0] != '#') {
+					switch ((temp[0] - '0') + (temp[1] - '0') + (temp[2] - '0')){
+					case 1: {
+						switch (temp[4])
+						{
+						case '0':
+							action = false; break;
+						case '1':
+							action = true; break;
+						default:
+							std::cout << "Nie poprawne dane w pliku konfiguracyjnym!\n";
+							break;
+						}
+						break;   }
+
+					}
+				}
+			}
+		}
+		file.close();
+	}
 }
