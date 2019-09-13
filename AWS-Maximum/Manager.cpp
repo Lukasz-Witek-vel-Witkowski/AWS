@@ -10,6 +10,7 @@ Manager::Manager(){
 }
 void Manager::Config() {
 	fileConfig.setCharsSkip("#");
+	fileConfig.setPosition(8);
 	fileConfig.setCharWall(' ');
 	fileConfig.setEnd("#end");
 	LoadData();
@@ -22,6 +23,10 @@ void Manager::LoadData() {
 	fileConfig.run(fileNameConfig);
 	value = new std::string(fileConfig.interpreter("1"));
 	managerFile = new ManagerFile();
+	managerFile->setAtribite(fileConfig.interpreter("2"));
+	managerFile->setAtribite(fileConfig.interpreter("3"));
+	managerFile->setAtribite(fileConfig.interpreter("4"));
+	managerFile->config(); //tworzenie attribute
 	Path = valuePath();
 }
 
@@ -86,7 +91,8 @@ Pack Manager::getFolder() {
 }
 std::vector<Cell> Manager::getPerformanceData(int i) {
 	V_Cell.clear();
-	std::string fileOne = Path  + V_Folder[0] +"\\" +managerFile->nextNameFile(V_Folder[0]);
+	fileThis = managerFile->nextNameFile(V_Folder[0]);
+	std::string fileOne = Path  + V_Folder[0] +"\\" + fileThis;
 	std::string filesecend = Path  + V_Folder[1] +"\\" +managerFile->nextNameFile(V_Folder[1]);
 	std::string filetree = Path  + V_Folder[2] + "\\"+managerFile->nextNameFile(V_Folder[2]);
 
@@ -117,12 +123,24 @@ std::vector<Cell> Manager::getPerformanceData(int i) {
 	std::cout << V_Cell.size()<<"\n";
 	return V_Cell;
 }
+std::string Manager::getThisFile() {
+	return fileThis;
+}
 int Manager::getSize() {
 	return managerFile->getSize(V_Folder[0]);
 }
 Manager::~Manager()
 {
 	delete managerFile;
-	delete managerFolder;
+	//delete managerFolder;
 	delete value;
+}
+std::string Manager::getNameResultFile() {
+	return fileConfig.interpreter("6");
+}
+long Manager::getLimit() {
+	return atol(fileConfig.interpreter("5").c_str());
+}
+void Manager::deleteFile(std::string data) {
+	managerFile->deleteFile(data);
 }

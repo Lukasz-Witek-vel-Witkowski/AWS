@@ -1,4 +1,14 @@
 # File Config
 # Path
 1 D:\Project\Studia\Semestr_VI\ProjektGrupowy-AWS\DanePoMatlap\
+# Angle values
+2 70, 75, 80, 85, 89
+# Starting points value
+3 1000, 500
+# Energy
+4 2_80 - 6_60
+# Threshold value
+5 2000000
+# Result file
+6 ResultFile.temp
 #end

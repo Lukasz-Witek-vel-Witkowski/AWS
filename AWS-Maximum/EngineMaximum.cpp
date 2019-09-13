@@ -5,6 +5,8 @@
 EngineMaximum::EngineMaximum()
 {
 	manager.setConfig(config);
+	fileResult = manager.getNameResultFile();
+	setLimit(manager.getLimit());
 	//manager(config);
 }
 
@@ -16,11 +18,14 @@ EngineMaximum::~EngineMaximum()
 void EngineMaximum::run() {
 	manager.runProcessing();
 	int size = manager.getSize();
+	manager.deleteFile(fileResult);
 	for (int i = 0; i < size; i++) {
-		AnalizerFiles(manager.getPerformanceData(i),"");
+		saveToResultFile(AnalizerFiles(manager.getPerformanceData(i),manager.getThisFile()));
 	}
 }
-
+void EngineMaximum::setLimit(long limit) {
+	Limit = limit;
+}
 std::vector<Block> EngineMaximum::AnalizerFiles(std::vector<Cell> V_Cell, std::string name) {
 	compartmentBefore = false;
 	compartmentSix60MHz = false;
@@ -119,8 +124,10 @@ std::vector<Block> EngineMaximum::AnalizerFiles(std::vector<Cell> V_Cell, std::s
 
 		if (maxSix60MHz.first != -1 && maxTwo80MHz.first != -1) {
 			V_block.push_back(Block(name, maxSix60MHz.second / (double)beforeMax, maxTwo80MHz.second / (double)beforeMax));
+			std::cout << "size V_Block = " << V_block.size() << "\n";
 		}
-	}
+	}	
+	std::cout << "size V_Block = " << V_block.size() << "\n";
 	return V_block;
 }
 std::pair<int, double> EngineMaximum::getMaximumFromMap(std::map<int, double> values) {
@@ -160,4 +167,30 @@ std::pair<int, double> EngineMaximum::getMaximumFromCompartment(std::map<int, in
 	}
 
 	return std::make_pair(-1, -1);
+}
+void EngineMaximum::saveToResultFile(std::vector<Block> V_block) {
+	std::ofstream file(fileResult, std::ios::app);
+	std::string data = "";
+	int i = 1;
+	if (file.good()) {
+		for (auto x : V_block) {
+			if (data == "") {
+				data = x.NameFile;
+				file <<"# "<<data << "\n";
+				file <<i<<' '<< x.value60MHz << " " << x.value80MHz << "\n";
+			}
+			else {
+				if (data == x.NameFile) {
+					file << i << ' '<< x.value60MHz << " " << x.value80MHz << "\n";
+				}
+				else {
+					data = x.NameFile;
+					file <<"# "<< data << "\n";
+					file << i << ' '<< x.value60MHz << " " << x.value80MHz << "\n";
+				}
+			}
+			i++;
+		}
+		file.close();
+	}
 }

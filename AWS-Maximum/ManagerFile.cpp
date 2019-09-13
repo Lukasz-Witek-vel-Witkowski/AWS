@@ -64,9 +64,60 @@ void ManagerFile::resetFolder(std::string data) {
 	system(path.c_str());
 }
 
+void ManagerFile::creatingAttributes() {
+
+}
+
 ManagerFile::~ManagerFile()
 {
 	for (auto& x : M_file) {
 		delete x.second;
 	}
+}
+
+void ManagerFile::setAtribite(std::string data) {
+	Attribute attribute;
+	attribute.value = data;
+	V_Attribute.push_back(attribute);
+}
+void ManagerFile::madeAttribute() {
+	std::string temp = "";
+	for (auto& x : V_Attribute) {
+		if (x.value.find(',') < x.value.size()) {
+			temp = "";
+			for (auto c : x.value) {
+				if (c == ',') {
+					x.compartment = false;
+					x.V_attribute.push_back(temp);
+					temp = "";
+					continue;
+				}
+				temp += c;
+			}
+			x.V_attribute.push_back(temp);
+		}
+		else if (x.value.find(" - ") < x.value.size()) {
+			temp = "";
+			for (auto c : x.value) {
+				if (c == '-') {
+					x.compartment = true;
+					x.V_attribute.push_back(temp);
+					temp = "";
+					continue;
+				}
+				temp += c;
+			}
+			x.V_attribute.push_back(temp);
+		}
+		if (x.V_attribute.size() > 0) {
+			x.clearWhiteChars();
+			//x.value = "":
+		}
+	}
+}
+void ManagerFile::deleteFile(std::string data) {
+	resetFolder(data);
+}
+void ManagerFile::config() {
+	 madeAttribute();
 }
