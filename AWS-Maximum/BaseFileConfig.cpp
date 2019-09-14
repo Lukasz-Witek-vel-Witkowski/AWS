@@ -15,10 +15,10 @@ void BaseFileConfig::run(std::string path) {
 	std::string data = "";
 	while (file.good()) {
 		std::getline(file, data);
-		std::cout << data << " - " << data.find(end) << " - " << end << "\n";
+		//std::cout << data << " - " << data.find(end) << " - " << end << "\n";
 		if (data.find(skip) != position) {
 			Parameter[data.substr(0, data.find(C))] = data.substr(data.find(C) + 1);
-			std::cout << data << " - " << data.substr(0, data.find(C)) << " - " << data.substr(data.find(C) + 1) << "-" << data.find(C) << "\n";
+			//std::cout << data << " - " << data.substr(0, data.find(C)) << " - " << data.substr(data.find(C) + 1) << "-" << data.find(C) << "\n";
 			continue;
 		}
 		if (data.find(end) == position) break;

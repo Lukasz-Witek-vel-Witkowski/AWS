@@ -27,8 +27,10 @@ public:
 	void runProcessing();
 	void LoadData();
 	int getSize();
+	bool getProgramMethod();
 	std::string getNameResultFile();
 	long getLimit();
+	void divisionIntoAttributes(std::string data);
 	std::vector<Cell> getPerformanceData(int i);
 	std::string getThisFile();
 	void setConfig(std::string data);

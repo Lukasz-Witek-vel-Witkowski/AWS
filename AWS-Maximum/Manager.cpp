@@ -29,8 +29,13 @@ void Manager::LoadData() {
 	managerFile->config(); //tworzenie attribute
 	Path = valuePath();
 }
+bool Manager::getProgramMethod() {
+	return (bool)atoi(fileConfig.interpreter("7").c_str());
+}
 
 void Manager::runProcessing() {
+	system("cls");
+	std::cout << "Wczytywanie listy plikow\n";
 	Pack pack = getFolder();
 	V_Folder.push_back(pack.fileCH1);
 	V_Folder.push_back(pack.fileCH2);
@@ -71,7 +76,7 @@ Pack Manager::getFolder() {
 		file >> temp;
 		do {
 			std::getline(file, temp);
-			std::cout << temp << "\n";
+			//std::cout << temp << "\n";
 			if (temp.find('.')>temp.size()){
 				position++;
 				switch (position) {
@@ -96,9 +101,9 @@ std::vector<Cell> Manager::getPerformanceData(int i) {
 	std::string filesecend = Path  + V_Folder[1] +"\\" +managerFile->nextNameFile(V_Folder[1]);
 	std::string filetree = Path  + V_Folder[2] + "\\"+managerFile->nextNameFile(V_Folder[2]);
 
-	std::cout << "file1 = " + fileOne + "\n";
-	std::cout << "file2 = " + filesecend + "\n";
-	std::cout << "file3 = " + filetree + "\n";
+	//std::cout << "file1 = " + fileOne + "\n";
+	//std::cout << "file2 = " + filesecend + "\n";
+	//std::cout << "file3 = " + filetree + "\n";
 	std::ifstream FileOne(fileOne);
 	std::ifstream FileSecend(filesecend);
 	std::ifstream FileTree(filetree);
@@ -120,7 +125,7 @@ std::vector<Cell> Manager::getPerformanceData(int i) {
 	else {
 		std::cout << "nie udalo sie otworzyc pliku";
 	}
-	std::cout << V_Cell.size()<<"\n";
+	//std::cout << V_Cell.size()<<"\n";
 	return V_Cell;
 }
 std::string Manager::getThisFile() {
@@ -143,4 +148,7 @@ long Manager::getLimit() {
 }
 void Manager::deleteFile(std::string data) {
 	managerFile->deleteFile(data);
+}
+void Manager::divisionIntoAttributes(std::string data) {
+	managerFile->divisionIntoAttributes(data);
 }

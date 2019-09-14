@@ -11,4 +11,6 @@
 5 2000000
 # Result file
 6 ResultFile.temp
+# Operating mode 0 - full , 1 - Result file analysis
+7 1
 #end

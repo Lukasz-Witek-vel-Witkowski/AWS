@@ -6,6 +6,9 @@
 #include  <fstream>
 #include <iostream>
 #include "Attribute.h"
+#define PosEngyne 2
+#define PosAmgle 0
+#define PosStartingPoint 1
 class ManagerFile
 {
 	int poaition;
@@ -25,6 +28,7 @@ public:
 	void setPathFolder(std::string folder, std::string path);
 	void generation(std::string folder, std::string name);
 	void setAtribite(std::string data);
+	void divisionIntoAttributes(std::string data);
 	std::string nextNameFile(std::string folder);
 	//std::string getFile(int i);
 	bool isNext(std::string data);

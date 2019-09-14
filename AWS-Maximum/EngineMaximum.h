@@ -7,33 +7,34 @@ class EngineMaximum
 {
 private:
 	long Limit;
+	bool b_program;
 	Manager manager;
 	std::string fileResult;
 	std::vector<Cell> V_Cell;
-	bool compartmentBefore = false;
-	bool compartmentSix60MHz = false;
-	bool compartmentTwo80MHz = false;
+	bool comBefore = false;
+	bool comSix60MHz = false;
+	bool comTwo80MHz = false;
 	std::vector<Block> V_block;
-	std::map<int, double> tempBefore;
-	std::map<int, double> tempSix60MHz;
-	std::map<int, double> tempTwo80MHz;
-	std::map<int, double> maximumBefore;
-	std::map<int, double> maximumSix60MHz;
-	std::map<int, double> maximumTwo80MHz;
+	std::map<int, double> M_Before;
+	std::map<int, double> M_60MHz;
+	std::map<int, double> M_80MHz;
+	std::map<int, double> M_maximumBefore;
+	std::map<int, double> M_maximum60MHz;
+	std::map<int, double> M_maximum80MHz;
 	double maxBefore = -1;
-	double maxSix60MHz = -1;
-	double maxTwo80MHz = -1;
-	std::map<int, int> indexes;
+	double max60MHz = -1;
+	double max80MHz = -1;
+	std::map<int, int> M_index;
 	int numOfCompartment = 0;
 public:
 	EngineMaximum();
 	void setLimit(long limit);
 	void run();
-	std::vector<Block> AnalizerFiles(std::vector<Cell> V_segment, std::string data);
-	std::pair<int, double> getMaximumFromMap(std::map<int, double> values);
-	int getNumberOfCompartment(std::map<int, int> indexes, int numOfIndex);
-	std::pair<int, double> getMaximumFromCompartment(std::map<int, int> indexes, std::map<int, double> & maximums, int compartment);
+	int getNumber(std::map<int, int> index, int number);
+	std::pair<int, double> getMaximum(std::map<int, int> index, std::map<int, double> & max, int com);
 	void saveToResultFile(std::vector<Block> V_blok);
+	std::vector<Block> AnalizerFiles(std::vector<Cell> V_segment, std::string data);
+	std::pair<int, double> getMaximumMap(std::map<int, double> values);
 	~EngineMaximum();
 };
 

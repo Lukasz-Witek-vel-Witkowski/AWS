@@ -1,6 +1,8 @@
 #pragma once
 #include <String>
 #include <vector>
+
+
 class ManagerFolder
 {
 	std::string Path;
