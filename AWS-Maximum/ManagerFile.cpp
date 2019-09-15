@@ -34,7 +34,7 @@ void ManagerFile::generation(std::string folder, std::string name) {
 		while(!file.eof()){
 			temp_next = temp;
 			std::getline(file, temp);
-			std::cout << temp<<"\n";
+//			std::cout << temp<<"\n";
 				if (temp.find("\\")>temp.size()) {
 					M_file[name]->push_back(temp);
 					M_position[name]++;
@@ -126,77 +126,104 @@ void ManagerFile::config() {
 	 madeAttribute();
 }
 void ManagerFile::divisionIntoAttributes(std::string data) {
-	std::ifstream file(data);
 	std::string line;
 	std::string temp = "";
 	std::string path;
 	std::string name;
 	int iterator;
+	bool what = false;
 	int iter;
 	system("mkdir Result");
 	system("mkdir Result\\Energy");
 	system("mkdir Result\\Amgle");
 	system("mkdir Result\\Starting_Point");
 	bool program = false;
-//	path = "Result\\Amgle\\ResultAmgle.txt";
-//	std::ofstream fAmge(path);
-//	path = "Result\\Starting_Point\\ResultStarting_Point.txt";
-//	std::ofstream fStartingPointer(path);
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < V_Attribute[i].V_attribute.size(); j++) {
+			std::cout << "i =" << i << "j = " << j << "\n";
 			switch (i) {
 			case PosAmgle:
 				path = "Result\\Amgle\\" + V_Attribute[i].V_attribute[j];
 				break;
 			case PosEngyne:
-				path = "Result\\Energy\\" + V_Attribute[i].V_attribute[j];
+				path = "Result\\Energy\\" + V_Attribute[i].V_attribute[0] + "-" + V_Attribute[i].V_attribute[1];
+				what = true;
+				j++;
 				break;
 			case PosStartingPoint:
-				path = "Result\\Energy\\" + V_Attribute[i].V_attribute[j];
+				path = "Result\\Starting_Point\\" + V_Attribute[i].V_attribute[j];
 				break;
 			}
+			std::cout << path<<std::endl;
+			std::ifstream file(data);
 			std::ofstream fEnergy(path);
 			if (file.good() && fEnergy.good()) {
 				while (!file.eof()) {
 					std::getline(file, line);
-					if (line.find('#') < line.size()) {
-						name = line;
-						program = false;
-						line.erase(line.begin(), line.begin() + 1);
-						iterator = 0;
-						temp = "";
-						for (auto x : line) {
-							if (x == '_') { iterator++; iter = iterator; }
-							if (iterator > 1) {
-								switch (iter) {
-								case 3: //energia
-								case 4:
-								case 5:
-									if (V_Attribute[i].V_attribute[j]==temp) {
-										std::cout << line << "\n";
-										std::cout << "tempAmgle = " << temp << "\n";
-										program = true;
-										temp.clear();
+					if (line.size() > 0) {
+						std::cout << line << std::endl;
+						if (line.find('#') < line.size()) {
+							name = line;
+							program = false;
+							line.erase(line.begin(), line.begin() + 1);
+							iterator = 0;
+							temp = "";
+							for (auto x : line) {
+								if (x == '_') { iterator++; iter = iterator; }
+								if (iterator > 1) {
+									switch (iter) {
+									case 3: //energia
+									case 4:
+									case 5:
+							//			std::cout << temp << "\n";
+										if (!what) {
+											if (V_Attribute[i].V_attribute[j] == temp) {
+						//						std::cout << line << "\n";
+							//					std::cout << "tempAmgle = " << temp << "\n";
+												program = true;
+											}
+										}
+										else {
+											if (comparator(temp, V_Attribute[PosEngyne].V_attribute[0]) && comparator(V_Attribute[PosEngyne].V_attribute[1], temp)) {
+							//					std::cout << line << "\n";
+							//					std::cout << "tempEngine = " << temp << "\n";
+												program = true;
+											}
+										}
 										iter = 0;
+										temp.clear();
+										break;
+									default:
+										if (x != '_')
+											temp += x;
 									}
-									break;
-								default:
-									if (x != '_')
-										temp += x;
 								}
 							}
 						}
+						else if (program) {
+							line.erase(line.begin(), line.begin() + 1);
+							name.erase(name.begin(), name.begin() + 1);
+				//			std::cout << line << " " << name << "\n";
+							fEnergy << line << "\t\t" << name << "\n";
+						}
 					}
-					else if (program) {
-						line.erase(line.begin(), line.begin() + 1);
-						name.erase(name.begin(), name.begin() + 1);
-						std::cout << line << " " << name << "\n";
-						fEnergy << line << "\t\t" << name << "\n";
-					}
-				}
+				}	
 				file.close();
 				fEnergy.close();
 			}
 		}
 	}
+}
+bool ManagerFile::comparator(std::string left, std::string reight) {
+	
+	if (left.size() == reight.size()) {
+		for (int i = 0; i < left.size(); i++) {
+			if (left[i] > reight[i]) {
+				if(left.find('E')<left.size()&&reight.find('E')<reight.size())
+				return true;
+			}
+			if (left[i] < reight[i]) return false;
+		}
+	}
+	return false;
 }

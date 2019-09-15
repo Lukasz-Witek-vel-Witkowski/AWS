@@ -4,9 +4,9 @@
 # Angle values
 2 70, 75, 80, 85, 89
 # Starting points value
-3 1000, 500
+3 500, 1000
 # Energy
-4 2_80 - 6_60
+4 2E8 - 6E6
 # Threshold value
 5 100000
 # Result file
