@@ -1,10 +1,10 @@
 #sciezka do katalogu z plikami
 100 ..\test
 #sciezka do katalogu wyjsciowego
-200 ..\output
+200 ..\file
 #sciezka do katalogu z wyodrebnionymi danymi ze struktur
 300 ..\result
 #ustawienia z przetwarzaniem plików (0 - przetwarzaj z wyjsciowych .txt / 1 - przetwarzaj z plików .bin )
-400 0
+400 1
 #ustawienie czy przetwarzac digital -1  czy nie -0
 500 0

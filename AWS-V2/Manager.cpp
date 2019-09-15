@@ -12,7 +12,7 @@ Manager::Manager(std::string data) {
 	active = false;
 }
 std::string& Manager::nextFile() {
-	if (iterator < 0) iterator = (int)vFile.size()-1;
+	if (iterator < 0) iterator = (int)vFile.size();
 	if(iterator>0)	return vFile[--iterator];
 	return data;
 }
@@ -121,7 +121,7 @@ void Manager::offAlternative() {
 	alterbative = false;
 }
 Focus& Manager::nextFocus() {
-	if (iteratorFocus < 0) iteratorFocus = (int)vFileFocus.size()-1;
+	if (iteratorFocus < 0) iteratorFocus = (int)vFileFocus.size();
 	if (iteratorFocus > 0)	return vFileFocus[--iteratorFocus];
 	return f_temp;
 }

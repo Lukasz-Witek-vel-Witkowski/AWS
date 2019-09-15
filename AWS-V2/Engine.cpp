@@ -98,7 +98,7 @@ void Engine::saveDataChanel() {
 	int iter = 0;
 	manager.resetIterator();
 	while (manager.sizeProduction()!=0) {
-		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size()-1 << "\n";
+		std::cout << "Przetwarzanie " << ++iter << " z " << manager.size() << "\n";
 		focus.SetOutPutFileCanal(manager.nextFile(), digital);
 	}
 }

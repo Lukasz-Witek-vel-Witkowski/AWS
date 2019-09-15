@@ -1,5 +1,5 @@
 //**********************************************************************************************************//
-// Data utworzenia: 20-03-2019									  		Autor: Lukasz Witek vel Witkowski	//
+// Data utworzenia: 07-05-2019									  		Autor: Lukasz Witek vel Witkowski	//
 // Opis: "Klasa Manager spelniajaca funkcje klasy sterujacej glownym algorytmem poprzez zarzadzanie			//
 //		  plikami do przetworzenia. "																		//
 //**********************************************************************************************************//
