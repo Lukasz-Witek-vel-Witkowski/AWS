@@ -4,6 +4,8 @@
 #include "FileConfig.h"
 #include "Pack.h"
 #include "Cell.hpp"
+#include <set>
+#include "Chart.h"
 class Manager
 {
 private:
@@ -11,6 +13,8 @@ private:
 	std::string* value = nullptr;
 	std::string fileNameConfig;
 	ManagerFile* managerFile = nullptr;
+	double percent;
+	std::vector<Chart> V_chart;
 //	ManagerFolder* managerFolder = nullptr;
 	FileConfig fileConfig;
 	std::string Path;
@@ -28,8 +32,11 @@ public:
 	void LoadData();
 	int getSize();
 	bool getProgramMethod();
+	int getDynamicLimit(int i);
+	void resetIterator();
 	std::string getNameResultFile();
 	long getLimit();
+	void maxWithFile();
 	void divisionIntoAttributes(std::string data);
 	std::vector<Cell> getPerformanceData(int i);
 	std::string getThisFile();

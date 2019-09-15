@@ -8,9 +8,13 @@
 # Energy
 4 2_80 - 6_60
 # Threshold value
-5 2000000
+5 100000
 # Result file
 6 ResultFile.temp
 # Operating mode 0 - full , 1 - Result file analysis
-7 1
+7 0
+# dynanmic threshold 0 - false, 1 true
+8 1
+# percent
+9 80
 #end

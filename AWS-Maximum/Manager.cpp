@@ -26,6 +26,7 @@ void Manager::LoadData() {
 	managerFile->setAtribite(fileConfig.interpreter("2"));
 	managerFile->setAtribite(fileConfig.interpreter("3"));
 	managerFile->setAtribite(fileConfig.interpreter("4"));
+	percent = atoi(fileConfig.interpreter("9").c_str())/100.0;
 	managerFile->config(); //tworzenie attribute
 	Path = valuePath();
 }
@@ -46,6 +47,9 @@ void Manager::runProcessing() {
 	managerFile->generation(Path, pack.fileCH1);
 	managerFile->generation(Path, pack.fileCH2);
 	managerFile->generation(Path, pack.fileCH3);
+	if ((bool)atoi(fileConfig.interpreter("8").c_str())) {
+		maxWithFile();
+	}
 }
 
 Pack Manager::next() {
@@ -93,6 +97,12 @@ Pack Manager::getFolder() {
 	}
 	Pack pack(one, two, tree);
 	return pack;
+}
+int Manager::getDynamicLimit(int i){
+	return V_chart[i].getLimit();
+}
+void Manager::resetIterator() {
+	managerFile->resetvalue();
 }
 std::vector<Cell> Manager::getPerformanceData(int i) {
 	V_Cell.clear();
@@ -151,4 +161,28 @@ void Manager::deleteFile(std::string data) {
 }
 void Manager::divisionIntoAttributes(std::string data) {
 	managerFile->divisionIntoAttributes(data);
+}
+void Manager::maxWithFile() {
+	V_chart.resize(managerFile->getSize(V_Folder[0])+1000);
+	double temp;
+	int iter = 1;
+		for (int j = 0; j < V_Folder.size(); j++) {
+			int size = managerFile->getSize(V_Folder[j]);
+			for (int i = 0; i < size; i++) {
+				system("cls");
+				std::cout << "postep w znajdywaniu maximow = " << (iter * 100) / (size*V_Folder.size()) << "[%] plik = "<<iter++ <<"/"<<size*V_Folder.size()<<"\n";
+				std::set<double> S_data;
+				std::ifstream data(Path + V_Folder[j] + "\\" + managerFile->nextNameFile(V_Folder[j]));
+				if (data.good()) {
+					while (!data.eof()) {
+						data >> temp;
+						S_data.insert(temp);
+					}
+					data.close();
+				}
+				V_chart[i].setParameter(j, *S_data.begin());
+				V_chart[i].precent = percent;
+			}
+			managerFile->resetvalue();
+		}
 }

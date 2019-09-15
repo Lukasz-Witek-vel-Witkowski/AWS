@@ -27,7 +27,8 @@ void EngineMaximum::run() {
 		system(temp.c_str());
 		for (int i = 0; i < size; i++) {
 			system("cls");
-			std::cout << "zrealizowano = " << (i * 100) / size << "[%] \n";
+			std::cout << "zrealizowano = " << (i * 100) / size << "[%] plik = "<<i<<"/"<<size <<"\n";
+			Limit = manager.getDynamicLimit(i);
 			saveToResultFile(AnalizerFiles(manager.getPerformanceData(i), manager.getThisFile()));
 		}
 	}
@@ -38,6 +39,7 @@ void EngineMaximum::run() {
 void EngineMaximum::setLimit(long limit) {
 	Limit = limit;
 }
+
 std::vector<Block> EngineMaximum::AnalizerFiles(std::vector<Cell> V_Cell, std::string name) {
 	comBefore = false;
 	comSix60MHz = false;
@@ -197,4 +199,7 @@ void EngineMaximum::saveToResultFile(std::vector<Block> V_block) {
 		}
 		file.close();
 	}
+}
+void maxWithFile() {
+
 }

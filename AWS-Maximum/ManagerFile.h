@@ -33,6 +33,7 @@ public:
 	//std::string getFile(int i);
 	bool isNext(std::string data);
 	void creatingAttributes();
+	void resetvalue();
 	int getSize(std::string data);
 	~ManagerFile();
 };
