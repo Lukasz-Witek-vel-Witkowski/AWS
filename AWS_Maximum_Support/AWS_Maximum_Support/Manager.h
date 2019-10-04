@@ -1,5 +1,5 @@
 #pragma once
-#include <set>
+#include <list>
 #include <vector>
 #include "Parameter.h"
 #include "FileConfig.h"
@@ -15,7 +15,7 @@ class Manager
 	std::string Path;
 	FileConfig fileConfig;
 	std::vector<std::string> V_nameFile;
-	std::set<Parameter> S_parameter;
+	std::list<Parameter> L_parameter;
 	std::vector<double> V_atribute;
 	std::vector<Compartment*> V_compartment;
 	std::string NameFile;
@@ -27,6 +27,7 @@ class Manager
 	void SaveParameters(std::string data);
 	void LoadPaths();
 	void generationNamefile();
+	const void shiftParameter();
 public:
 	Manager(std::string NameConfig);
 	void run();

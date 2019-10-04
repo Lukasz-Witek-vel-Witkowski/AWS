@@ -2,14 +2,13 @@
 #include <string>
 class Parameter
 {
-	int id;
 	bool what;
 	double P60MHz;
 	double P80MHz;
 	std::string NameFile;
 public:
-	Parameter(int id);
-	Parameter(bool what, int id);
+	Parameter();
+	Parameter(bool what);
 	double getValue();
 	void shift();
 	friend bool operator<(const Parameter &t, const Parameter &P);

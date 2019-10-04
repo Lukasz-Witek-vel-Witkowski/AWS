@@ -2,16 +2,14 @@
 
 
 
-Parameter::Parameter(int id)
+Parameter::Parameter()
 {
-	this->id;
 	what = false;
 	P60MHz = 0.0;
 	P80MHz = 0.0;
 	NameFile = "";
 }
-Parameter::Parameter(bool what, int id) {
-	this->id;
+Parameter::Parameter(bool what) {
 	this->what = what;
 	P60MHz = 0.0;
 	P80MHz = 0.0;
@@ -54,7 +52,7 @@ Parameter& Parameter::operator=(Parameter &P) {
 }
 bool Parameter::operator==(Parameter &P) {
 	if (this->what == P.what) {
-		if (this->P60MHz == P.P60MHz&&this->P80MHz == P.P80MHz&&this->NameFile == P.NameFile&&this->id == P.id) {
+		if (this->P60MHz == P.P60MHz&&this->P80MHz == P.P80MHz&&this->NameFile == P.NameFile) {
 			return true;
 		}
 	}

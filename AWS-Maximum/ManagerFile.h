@@ -19,6 +19,7 @@ class ManagerFile
 	std::map<std::string, std::vector<std::string>*> M_file;
 	std::vector<Attribute> V_Attribute;
 	void madeAttribute();
+	std::string writeconversion(std::string data);
 	bool comparator(std::string left, std::string reight);
 	void resetFolder(std::string data);
 public:

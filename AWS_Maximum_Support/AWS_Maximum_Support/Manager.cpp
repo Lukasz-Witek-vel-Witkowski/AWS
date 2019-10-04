@@ -31,12 +31,11 @@ void Manager::config() {
 	generationNamefile();
 }
 void Manager::loadfile() {
-	int iterator;
 	std::string data;
+	std::string temp;
 	for (int i = 0; i < 3; i++) {
 		for (auto x : V_nameFile) {
-			S_parameter.clear();
-			iterator = 0;
+			L_parameter.clear();
 			std::cout << "aktualny plik: " + x << "\n";
 			switch (i) {
 			case 0:
@@ -49,23 +48,31 @@ void Manager::loadfile() {
 			std::ifstream file(data);
 			if (file.good()) {
 				while (!file.eof()) {
-					Parameter parameter(iterator++);
+					Parameter parameter;
 					file >> parameter;
-					S_parameter.insert(parameter);
+					L_parameter.push_back(parameter);
 				}
+				L_parameter.sort();
 				std::cout << "wczytanie dancyh z pliku " << x <<"\n";
 				file.close();
-				data += ".csv";
+				temp = data;
+				data += "_60_MHz.csv";
 				SumParameter();
 				std::cout << "przeworzenie dancyh w pliku " << x << "\n";
 				SaveParameters(data); 
 				std::cout << "zapisanie dancyh pliku " << x << "\n";
+				shiftParameter();
+				data = temp;
+				data += "_80_MHz.csv";
+				SumParameter();
+				std::cout << "przeworzenie dancyh w pliku " << x << "\n";
+				SaveParameters(data);
 			}
 		}
 	}
 }
 void Manager::SumParameter() {
-	for (auto x : S_parameter) {
+	for (auto x : L_parameter) {
 		for (auto& y : V_compartment) {
 			y->comparison(x.getValue());
 		}
@@ -176,5 +183,10 @@ void Manager::generationNamefile() {
 			}
 			file.close();
 		}
+	}
+}
+const void Manager::shiftParameter() {
+	for (auto& x : L_parameter) {
+		x.shift();
 	}
 }

@@ -106,6 +106,7 @@ void ManagerFile::madeAttribute() {
 				if (c == '-') {
 					x.compartment = true;
 					x.V_attribute.push_back(temp);
+					active = true;
 					temp = "";
 					continue;
 				}
@@ -131,7 +132,8 @@ void ManagerFile::divisionIntoAttributes(std::string data) {
 	std::string path;
 	std::string name;
 	int iterator;
-	bool what = false;
+	bool what;
+	bool ctr = false;
 	int iter;
 	system("mkdir Result");
 	system("mkdir Result\\Energy");
@@ -140,30 +142,37 @@ void ManagerFile::divisionIntoAttributes(std::string data) {
 	bool program = false;
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < V_Attribute[i].V_attribute.size(); j++) {
-			std::cout << "i =" << i << "j = " << j << "\n";
+			what = false;
+			//std::cout << "i =" << i << "j = " << j << "\n";
 			switch (i) {
 			case PosAmgle:
 				path = "Result\\Amgle\\" + V_Attribute[i].V_attribute[j];
 				break;
 			case PosEngyne:
-				path = "Result\\Energy\\" + V_Attribute[i].V_attribute[0] + "-" + V_Attribute[i].V_attribute[1];
-				what = true;
-				j++;
+				if (active) {
+					path = "Result\\Energy\\" + V_Attribute[i].V_attribute[0] + "-" + V_Attribute[i].V_attribute[1];
+					what = true;
+					j++;
+				}
+				else {
+					path = "Result\\Energy\\" + V_Attribute[i].V_attribute[j];
+				}
 				break;
 			case PosStartingPoint:
 				path = "Result\\Starting_Point\\" + V_Attribute[i].V_attribute[j];
 				break;
 			}
-			std::cout << path<<std::endl;
+			//std::cout << path<<std::endl;
 			std::ifstream file(data);
 			std::ofstream fEnergy(path);
 			if (file.good() && fEnergy.good()) {
 				while (!file.eof()) {
 					std::getline(file, line);
 					if (line.size() > 0) {
-						std::cout << line << std::endl;
+						//std::cout << line << std::endl;
 						if (line.find('#') < line.size()) {
 							name = line;
+							ctr = false;
 							program = false;
 							line.erase(line.begin(), line.begin() + 1);
 							iterator = 0;
@@ -175,11 +184,11 @@ void ManagerFile::divisionIntoAttributes(std::string data) {
 									case 3: //energia
 									case 4:
 									case 5:
-							//			std::cout << temp << "\n";
+								//	std::cout << temp << "\n";
 										if (!what) {
 											if (V_Attribute[i].V_attribute[j] == temp) {
-						//						std::cout << line << "\n";
-							//					std::cout << "tempAmgle = " << temp << "\n";
+									//		std::cout << line << "\n";
+									//			std::cout << "tempAmgle = " << temp << "\n";
 												program = true;
 											}
 										}
@@ -202,9 +211,12 @@ void ManagerFile::divisionIntoAttributes(std::string data) {
 						}
 						else if (program) {
 							line.erase(line.begin(), line.begin() + 1);
-							name.erase(name.begin(), name.begin() + 1);
+							if (ctr == false) {
+								name.erase(name.begin(), name.begin() + 1);
+								ctr = true;
+							}
 				//			std::cout << line << " " << name << "\n";
-							fEnergy << line << "\t\t" << name << "\n";
+							fEnergy << writeconversion(line) << "\t" << name << "\n";
 						}
 					}
 				}	
@@ -226,4 +238,36 @@ bool ManagerFile::comparator(std::string left, std::string reight) {
 		}
 	}
 	return false;
+}
+std::string ManagerFile::writeconversion(std::string data) {
+	std::string temp="";
+	int iter = 0;
+	int start;
+	int stop;
+	//bool positive;
+	for (int i = 0; i < data.size(); i++) {
+		if (data[i] == ' '||i==(data.size()-1)) {
+			iter++;
+			switch(iter) {
+			case 1:
+				start = i + 1;
+				break;
+			case 2:
+			case 3:
+				stop = i-start;
+				temp += data.substr(start, stop);
+				//std::cout << temp << "\n";
+				temp += '\t';
+				start = i;
+				break;
+			default: break;
+			}
+		}		
+	}
+
+/*	for(auto x:temp){
+		if(x==' ')
+		std::cout << temp<< "\n";
+	}*/
+	return temp;
 }
