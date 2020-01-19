@@ -1,0 +1,20 @@
+# File Config
+# Path
+1 D:\Project\Studia\Semestr_VI\ProjektGrupowy-AWS\DobreDane\test\
+# Angle values
+2 70, 75, 80, 85, 89
+# Starting points value
+3 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 10000
+# Energy
+4 1E7, 1E8, 1E9, 2E0, 2E1, 2E2, 2E3, 2E4, 2E5, 2E6, 2E7, 2E8, 2E9, 3E0, 3E1, 3E2, 3E3, 3E4, 3E5, 3E6, 3E7, 3E8, 3E9, 4E0, 4E1, 4E2, 4E3
+# Threshold value
+5 100000
+# Result file
+6 ResultFile.temp
+# Operating mode 0 - full , 1 - Result file analysis
+7 0
+# dynanmic threshold 0 - false, 1 true
+8 1
+# percent
+9 80
+#end

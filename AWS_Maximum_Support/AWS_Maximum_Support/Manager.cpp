@@ -45,12 +45,16 @@ void Manager::loadfile() {
 			case 2:
 				data = Path + "\\" + pack->fileCH3 + "\\" + x; break;
 			}
+			int size;
+			int iterator = 0;
 			std::ifstream file(data);
 			if (file.good()) {
-				while (!file.eof()) {
+				file >> size;
+				while (iterator < size) {
 					Parameter parameter;
 					file >> parameter;
 					L_parameter.push_back(parameter);
+					iterator++;
 				}
 				L_parameter.sort();
 				std::cout << "wczytanie dancyh z pliku " << x <<"\n";
